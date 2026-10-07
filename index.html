@@ -86,18 +86,6 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   color:var(--text-faint);opacity:.75;pointer-events:none;}
 .clock .lab{margin-right:10px;color:var(--accent-soft);opacity:.8;}
 
-/* ===== 侧边导航 ===== */
-.side-nav{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:160;display:flex;flex-direction:column;gap:18px;}
-.side-nav .dot{width:9px;height:9px;border-radius:50%;border:1px solid var(--border);background:transparent;position:relative;cursor:pointer;transition:all .35s cubic-bezier(.16,1,.3,1);transform:rotate(45deg);border-radius:1px;}
-.side-nav .dot.active{background:var(--rose);border-color:var(--rose);box-shadow:0 0 12px rgba(201,24,58,.75);transform:rotate(45deg) scale(1.2);}
-.side-nav .dot .tip{position:absolute;right:24px;top:50%;transform:translateY(-50%) rotate(-45deg);font-size:11px;letter-spacing:.14em;color:var(--text-dim);white-space:nowrap;opacity:0;transition:opacity .3s;pointer-events:none;font-family:var(--font-sans);}
-.side-nav .dot:hover .tip{opacity:1;}
-
-/* ===== 翻页控制 ===== */
-.nav-ctrl{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);z-index:160;display:flex;align-items:center;gap:20px;}
-.navbtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:rgba(12,8,14,.55);color:var(--bone-dim);font-size:20px;cursor:pointer;backdrop-filter:blur(6px);transition:all .3s;font-family:var(--font-latin);}
-.navbtn:hover{color:var(--rose-soft);border-color:rgba(201,24,58,.5);box-shadow:0 0 16px rgba(201,24,58,.28);}
-.chap{font-family:var(--font-latin);font-size:13px;letter-spacing:.34em;color:var(--bone-dim);min-width:64px;text-align:center;}
 
 /* ===== 光标（酒瓶） ===== */
 .cursor{position:fixed;top:0;left:0;width:46px;height:46px;z-index:200;pointer-events:none;transition:transform .12s ease;will-change:transform;mix-blend-mode:normal;}
@@ -352,14 +340,14 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 #hub .card.front .lab{color:#fff;text-shadow:0 0 18px rgba(255,51,72,.7);}
 #hub .card.front .enter{opacity:1;}
 #hub .hub-tip{position:absolute;bottom:5.5vh;left:0;right:0;text-align:center;font-family:var(--font-serif);font-size:12px;letter-spacing:.32em;text-indent:.32em;color:rgba(236,231,238,.42);pointer-events:none;z-index:4;text-shadow:var(--stroke);}
-.hub-open .side-nav,.hub-open .nav-ctrl,.hub-open .clock,.hub-open .music,.hub-open .page-frame{display:none!important;}
+.hub-open .clock,.hub-open .music,.hub-open .page-frame{display:none!important;}
 @media (max-width:680px){
   #hub .card{width:116px;height:154px;}
   #hub .card .lab{font-size:15px;bottom:26px;}
   #hub .card .en{bottom:12px;}
 }
 
-/* qj-hub-order-v6 */
+/* qj-no-sidenav-v7 */
 </style>
 </head>
 <body>
@@ -404,20 +392,6 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 
 <div class="clock"><span class="lab">FRAME</span><span id="clock-time">--:--:--</span></div>
 
-<div class="side-nav">
-  <div class="dot active" data-i="0"><span class="tip">封面</span></div>
-  <div class="dot" data-i="1"><span class="tip">关于我</span></div>
-  <div class="dot" data-i="2"><span class="tip">风格一览</span></div>
-  <div class="dot" data-i="3"><span class="tip">常驻装扮</span></div>
-  <div class="dot" data-i="4"><span class="tip">了解更多</span></div>
-  <div class="dot" data-i="5"><span class="tip">结尾</span></div>
-</div>
-
-<div class="nav-ctrl">
-  <button class="navbtn" id="prev" aria-label="上一帧">‹</button>
-  <span class="chap" id="chap">I / V</span>
-  <button class="navbtn" id="next" aria-label="下一帧">›</button>
-</div>
 
 <div class="cursor" id="cur"><svg class="cbottle-cur" viewBox="0 0 30 46">
   <g class="cbg">
@@ -658,31 +632,23 @@ if(!REDUCE)drawR();
 const cur=document.getElementById('cur');
 let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
 addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;onMove(e.clientX,e.clientY,performance.now());});
-addEventListener('mouseover',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn,.flip-card'))cur.classList.add('big');});
-addEventListener('mouseout',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.remove('big');});
+addEventListener('mouseover',e=>{if(e.target.closest('a,.btn,.tag,.link-btn,.flip-card'))cur.classList.add('big');});
+addEventListener('mouseout',e=>{if(e.target.closest('a,.btn,.tag,.link-btn'))cur.classList.remove('big');});
 (function curLoop(){cx+=(mx-cx)*0.16;cy+=(my-cy)*0.16;if(cur)cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(curLoop);})();
 
-/* ===== 点击式翻页 ===== */
+/* ===== 翻页（由半圆枢纽选择进入，页内点击返回） ===== */
 const panels=[...document.querySelectorAll('.panel')];
-const dots=[...document.querySelectorAll('.side-nav .dot')];
-const chap=document.getElementById('chap');
-const RN=['I','II','III','IV','V','VI','VII'];
 let cur2=0;
 function show(i){
   i=(i+panels.length)%panels.length;const p=panels[i];
   panels.forEach((s,k)=>s.classList.toggle('active',k===i));
-  dots.forEach((d,k)=>d.classList.toggle('active',k===i));
-  chap.textContent=RN[i]+' / '+RN[panels.length-1];
   p.classList.remove('active');void p.offsetWidth;p.classList.add('active');
   cur2=i;
 }
-dots.forEach(d=>d.addEventListener('click',()=>show(+d.dataset.i)));
-document.getElementById('prev').addEventListener('click',()=>show(cur2-1));
-document.getElementById('next').addEventListener('click',()=>show(cur2+1));
 addEventListener('keydown',e=>{const ie=document.getElementById('intro');if((ie&&!ie.classList.contains('done'))||document.body.classList.contains('hub-open'))return;if(e.key==='ArrowRight'||e.key==='ArrowDown')show(cur2+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur2-1);});
 const deck=document.getElementById('deck');
 let pX=0,pY=0,pT=0,pouringLock=false;
-function isUI(t){return t.closest('a,.btn,.dot,.tag,.link-btn,.navbtn,button,.music,.flip-card');}
+function isUI(t){return t.closest('a,.btn,.tag,.link-btn,button,.music,.flip-card');}
 function spawnPour(x,y){
   const el=document.createElement('div');el.className='cursor pouring transient';
   el.innerHTML='<svg class="cbottle-cur" viewBox="0 0 30 46"><g class="cbg"><path d="M11 1 L19 1 L19 12 C25 15 27 19 27 24 L27 41 C27 43.5 25 45 22.5 45 L7.5 45 C5 45 3 43.5 3 41 L3 24 C3 19 5 15 11 12 Z" fill="rgba(20,16,26,.94)" stroke="rgba(214,69,96,.75)" stroke-width="1.1"/><path d="M11 1 L19 1 L19 4 L11 4 Z" fill="#2a2130" stroke="rgba(217,210,218,.4)" stroke-width=".6"/><path d="M5 27 L25 27 L25 41 C25 43 23.5 44 22.5 44 L7.5 44 C6.5 44 5 43 5 41 Z" fill="#a3132e"/><path d="M13 5 L15 5 L15 12" stroke="rgba(255,255,255,.32)" stroke-width="1" fill="none"/><path d="M22 30 C24 34 24 38 23 41" stroke="rgba(255,255,255,.12)" stroke-width="1.4" fill="none"/><path class="cstream" d="M15 1 C15 -4 13 -9 14 -14" stroke="#c9183a" stroke-width="2" fill="none" stroke-linecap="round" opacity="0"/></g><span class="cpool"></span></svg>';
