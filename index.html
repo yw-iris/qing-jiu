@@ -15,8 +15,9 @@
   --rose:#c9183a;--rose-deep:#8e1024;--rose-soft:#e25370;
   --bone:#ece7ee;--bone-dim:#cfc8d4;
   --accent:#c9183a;--accent-soft:#d56b7e;--accent-warm:#d9d2da;
+  --gold:#caa24e;--gold-soft:#e6cd8a;
   --text-bright:#fbf8fb;
-  --stroke:0 1px 10px rgba(0,0,0,.82),0 0 2px rgba(0,0,0,.6);
+  --stroke:0 1px 13px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.72);
   --border:rgba(217,210,218,.18);
   --font-display:'ZCOOL XiaoWei','Ma Shan Zheng',serif;
   --font-serif:'Noto Serif SC','Songti SC',serif;
@@ -60,15 +61,15 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 
 /* ===== 全局页面边框（巴洛克双线 + 四角雕花，盖于底图之上） ===== */
 .page-frame{position:fixed;inset:0;z-index:150;pointer-events:none;}
-.page-frame .pf-line{position:absolute;inset:15px;border:1px solid rgba(217,210,218,.34);border-radius:2px;
-  box-shadow:0 0 26px rgba(142,16,36,.14),inset 0 0 26px rgba(142,16,36,.1);}
-.page-frame .pf-line.inner{inset:20px;border-color:rgba(217,210,218,.15);box-shadow:none;}
-.page-frame .pf-corner{position:absolute;width:66px;height:66px;color:rgba(224,217,224,.55);}
+.page-frame .pf-line{position:absolute;inset:15px;border:1px solid rgba(202,162,78,.5);border-radius:2px;
+  box-shadow:0 0 26px rgba(202,162,78,.16),inset 0 0 26px rgba(202,162,78,.12);}
+.page-frame .pf-line.inner{inset:20px;border-color:rgba(202,162,78,.28);box-shadow:none;}
+.page-frame .pf-corner{position:absolute;width:66px;height:66px;color:rgba(230,205,138,.82);}
 .page-frame .pf-corner.tl{top:7px;left:7px;}
 .page-frame .pf-corner.tr{top:7px;right:7px;transform:scaleX(-1);}
 .page-frame .pf-corner.bl{bottom:7px;left:7px;transform:scaleY(-1);}
 .page-frame .pf-corner.br{bottom:7px;right:7px;transform:scale(-1);}
-.page-frame .pf-corner svg{width:100%;height:100%;filter:drop-shadow(0 0 7px rgba(142,16,36,.55));}
+.page-frame .pf-corner svg{width:100%;height:100%;filter:drop-shadow(0 0 8px rgba(202,162,78,.6));}
 
 /* ===== 时钟 ===== */
 .clock{position:fixed;left:20px;top:20px;z-index:160;font-family:var(--font-latin);font-size:13px;letter-spacing:.3em;
@@ -126,8 +127,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   background:linear-gradient(180deg,#ffffff 0%,#f3ecf1 46%,#cf9fb0 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 18px rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(142,16,36,.3));}
-.sec-sub{margin-top:18px;font-size:clamp(15px,1.85vw,18px);font-weight:500;color:var(--bone);max-width:580px;line-height:2.2;font-family:var(--font-serif);text-shadow:var(--stroke);}
-.verse{position:relative;margin-top:20px;padding-top:20px;font-family:var(--font-serif);font-weight:500;font-size:clamp(16px,2vw,18.5px);color:var(--bone);letter-spacing:.1em;line-height:2.15;max-width:560px;opacity:1;text-shadow:var(--stroke);}
+.sec-sub{margin-top:18px;font-size:clamp(16.5px,2.1vw,20px);font-weight:600;color:var(--text-bright);max-width:600px;line-height:2.2;font-family:var(--font-serif);text-shadow:var(--stroke);}
+.verse{position:relative;margin-top:20px;padding-top:20px;font-family:var(--font-serif);font-weight:600;font-size:clamp(16.5px,2.1vw,19.5px);color:var(--text-bright);letter-spacing:.1em;line-height:2.15;max-width:560px;opacity:1;text-shadow:var(--stroke);}
 .verse::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,24,58,.8),transparent);}
 .quote-en{font-family:var(--font-gothic);font-size:clamp(20px,3.4vw,34px);line-height:1.4;color:var(--rose-soft);opacity:.92;
   text-shadow:0 0 24px rgba(142,16,36,.55);margin-top:14px;letter-spacing:.02em;}
@@ -153,11 +154,11 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .divider svg{width:100%;height:100%;}
 
 /* ===== 封面画框（巴洛克双线 + 雕花角） ===== */
-.frame{position:relative;padding:48px 58px;border:1px solid rgba(217,210,218,.28);border-radius:2px;
-  box-shadow:0 0 80px rgba(142,16,36,.12),inset 0 0 70px rgba(0,0,0,.55);
+.frame{position:relative;padding:48px 58px;border:1px solid rgba(202,162,78,.45);border-radius:2px;
+  box-shadow:0 0 80px rgba(202,162,78,.16),inset 0 0 70px rgba(0,0,0,.55);
   background:linear-gradient(165deg,rgba(22,15,26,.5),rgba(6,4,8,.65));}
-.frame::before{content:"";position:absolute;inset:7px;border:1px solid rgba(217,210,218,.12);pointer-events:none;}
-.frame .fc{position:absolute;width:34px;height:34px;color:rgba(217,210,218,.6);}
+.frame::before{content:"";position:absolute;inset:7px;border:1px solid rgba(202,162,78,.22);pointer-events:none;}
+.frame .fc{position:absolute;width:34px;height:34px;color:rgba(230,205,138,.88);}
 .frame .fc svg{width:100%;height:100%;}
 .frame .fc.tl{top:-8px;left:-8px;}
 .frame .fc.tr{top:-8px;right:-8px;transform:scaleX(-1);}
@@ -168,8 +169,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   -webkit-background-clip:text;background-clip:text;color:transparent;
   filter:drop-shadow(0 2px 26px rgba(0,0,0,.72)) drop-shadow(0 0 34px rgba(142,16,36,.34));margin-top:10px;}
 #cover .epigraph{margin-top:24px;font-family:var(--font-serif);font-weight:500;font-size:clamp(16px,2.2vw,21px);color:var(--text-bright);letter-spacing:.18em;text-shadow:var(--stroke);}
-#cover .epigraph-sub{margin-top:10px;font-size:14px;color:var(--bone);letter-spacing:.24em;font-family:var(--font-serif);text-shadow:var(--stroke);}
-.scroll-hint{margin-top:26px;font-size:12px;letter-spacing:.2em;color:var(--text-faint);font-family:var(--font-sans);}
+#cover .epigraph-sub{margin-top:10px;font-size:15px;color:var(--text-bright);letter-spacing:.24em;font-family:var(--font-serif);text-shadow:var(--stroke);}
+.scroll-hint{margin-top:26px;font-size:12.5px;letter-spacing:.2em;color:var(--bone-dim);font-family:var(--font-sans);}
 
 /* ===== 封面 · 斟酒提示（通过光标酒瓶实现） ===== */
 
@@ -183,7 +184,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .ledger .row:last-child{border-bottom:none;}
 .ledger .k{font-family:var(--font-latin);font-size:11.5px;letter-spacing:.34em;color:var(--text-faint);min-width:96px;text-transform:uppercase;}
 .ledger .v{font-family:var(--font-serif);font-size:17px;color:var(--text);letter-spacing:.06em;}
-.card .struck{margin-top:18px;padding-top:16px;border-top:1px solid rgba(217,210,218,.1);text-align:left;color:var(--text-dim);font-size:13.5px;line-height:2;font-family:var(--font-serif);opacity:.82;text-shadow:var(--stroke);}
+.card .struck{margin-top:18px;padding-top:16px;border-top:1px solid rgba(217,210,218,.1);text-align:left;color:var(--bone-dim);font-size:14.5px;line-height:2;font-family:var(--font-serif);opacity:1;text-shadow:var(--stroke);}
 .card .struck span{text-decoration:line-through;text-decoration-color:rgba(201,24,58,.55);}
 .card .gothic{margin-top:20px;font-family:var(--font-gothic);font-size:clamp(17px,2.6vw,24px);color:var(--rose-soft);text-align:center;line-height:1.5;text-shadow:0 0 20px rgba(142,16,36,.5);}
 
@@ -193,10 +194,10 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .style-line{font-family:var(--font-serif);font-size:clamp(18px,2.5vw,23px);color:var(--text-bright);letter-spacing:.1em;margin:10px 0;font-weight:600;text-shadow:var(--stroke);}
 .style-line i{font-style:normal;color:var(--rose-soft);margin:0 .42em;font-size:.8em;opacity:.85;}
 .tags{display:flex;flex-wrap:wrap;gap:10px 0;justify-content:center;align-items:center;}
-.tag{padding:8px 20px;border:1px solid rgba(217,210,218,.22);border-radius:1px;font-size:14.5px;letter-spacing:.16em;color:var(--bone);font-family:var(--font-serif);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));transition:all .3s;position:relative;}
+.tag{padding:8px 20px;border:1px solid rgba(217,210,218,.22);border-radius:1px;font-size:15.5px;letter-spacing:.16em;color:var(--text-bright);font-family:var(--font-serif);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));transition:all .3s;position:relative;}
 .tag:not(:first-child){margin-left:10px;}
 .tag:hover{color:#f3d7dd;border-color:rgba(201,24,58,.65);background:linear-gradient(180deg,rgba(142,16,36,.2),rgba(142,16,36,.05));box-shadow:0 0 18px rgba(201,24,58,.3);}
-.style-note{margin-top:24px;font-family:var(--font-serif);color:var(--bone);font-size:15.5px;font-weight:500;letter-spacing:.08em;max-width:560px;line-height:2.1;opacity:1;text-shadow:var(--stroke);}
+.style-note{margin-top:24px;font-family:var(--font-serif);color:var(--text-bright);font-size:16.5px;font-weight:600;letter-spacing:.08em;max-width:560px;line-height:2.1;opacity:1;text-shadow:var(--stroke);}
 .style-note em{font-style:normal;color:var(--rose-soft);}
 
 /* ===== 了解更多：可点击文档入口 ===== */
@@ -206,7 +207,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .link-btn:hover,.link-btn:focus-visible{border-color:rgba(201,24,58,.6);background:linear-gradient(180deg,rgba(142,16,36,.2),rgba(142,16,36,.05));box-shadow:0 0 22px rgba(201,24,58,.3);transform:translateX(4px);outline:none;}
 .link-btn:hover::before,.link-btn:focus-visible::before{opacity:1;}
 .link-btn .lk-k{font-family:var(--font-serif);font-weight:700;font-size:19px;letter-spacing:.16em;color:var(--text-bright);min-width:64px;text-align:left;}
-.link-btn .lk-v{font-family:var(--font-serif);font-size:14px;color:var(--bone);letter-spacing:.04em;flex:1;text-align:left;opacity:.9;}
+.link-btn .lk-v{font-family:var(--font-serif);font-size:15.5px;font-weight:500;color:var(--text-bright);letter-spacing:.04em;flex:1;text-align:left;opacity:1;}
 .link-btn .lk-arrow{font-family:var(--font-latin);font-size:18px;color:var(--rose-soft);opacity:.65;transition:transform .3s,opacity .3s;}
 .link-btn:hover .lk-arrow,.link-btn:focus-visible .lk-arrow{transform:translate(3px,-3px);opacity:1;}
 
@@ -214,8 +215,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .ending-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:40vh;color:rgba(217,210,218,.045);z-index:0;pointer-events:none;user-select:none;}
 .seal{margin:20px auto 0;width:72px;height:72px;border:1px solid var(--rose);outline:1px solid rgba(201,24,58,.3);outline-offset:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:38px;color:var(--rose-soft);box-shadow:0 0 26px rgba(142,16,36,.4);background:rgba(142,16,36,.07);border-radius:1px;}
 .ending{margin-top:20px;font-family:var(--font-serif);font-size:16px;font-weight:500;letter-spacing:.14em;color:var(--bone);text-shadow:var(--stroke);}
-.epigraph-sub{margin-top:12px;font-size:13px;color:var(--bone);letter-spacing:.28em;font-family:var(--font-latin);text-transform:uppercase;text-shadow:var(--stroke);}
-.credit-line{margin-top:16px;font-family:var(--font-sans);font-size:11.5px;letter-spacing:.18em;color:var(--bone-dim);opacity:.85;text-shadow:var(--stroke);}
+.epigraph-sub{margin-top:12px;font-size:13.5px;color:var(--text-bright);letter-spacing:.28em;font-family:var(--font-latin);text-transform:uppercase;text-shadow:var(--stroke);}
+.credit-line{margin-top:16px;font-family:var(--font-sans);font-size:12.5px;letter-spacing:.18em;color:var(--bone);opacity:1;text-shadow:var(--stroke);}
 
 /* ===== 移动端 ===== */
 @media(max-width:680px){
@@ -243,7 +244,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider{opacity:1!important;}
 }
 
-/* qj-moreinfo-v1 */
+/* qj-gold-smalltext-v1 */
 </style>
 </head>
 <body>
@@ -319,7 +320,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg" style="background-image:url('bg2.jpg')"></div>
     <div class="eyebrow">About · Self Introduction</div>
     <h2 class="sec-title">清酒</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="card">
       <div class="ledger">
         <div class="row"><span class="k">Name</span><span class="v">清酒</span></div>
@@ -341,7 +342,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg dim" style="background-image:url('bg3.jpg')"></div>
     <div class="eyebrow">Style · 一览</div>
     <h2 class="sec-title">我是什么样的人</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="tag-group">
       <div class="style-line">温病<i>丨</i>微擦<i>丨</i>逻辑<i>丨</i>诡辩</div>
       <div class="style-line">中高<i>丨</i>高擦<i>丨</i>白话<i>丨</i>恶趣味…</div>
@@ -354,7 +355,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg" style="background-image:url('bg4.jpg')"></div>
     <div class="eyebrow">Outfit · 常驻装扮</div>
     <h2 class="sec-title">我常穿在身上的</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="tags" style="margin-top:26px;">
       <span class="tag">白枭</span><span class="tag">耳虚</span><span class="tag">阿努比斯</span>
     </div>
@@ -365,7 +366,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg dim" style="background-image:url('bg5.jpg')"></div>
     <div class="eyebrow">More · 了解更多</div>
     <h2 class="sec-title">了解更多的我</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="info-links">
       <a class="link-btn" href="https://www.kdocs.cn/l/cggVSeUGggXU" target="_blank" rel="noopener">
         <span class="lk-k">板评</span><span class="lk-v">角色评测 · 细致拆解</span><span class="lk-arrow">&#8599;</span>
