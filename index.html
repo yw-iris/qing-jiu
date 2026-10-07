@@ -142,14 +142,14 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .verse::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,24,58,.8),transparent);}
 .quote-en{font-family:var(--font-gothic);font-size:clamp(20px,3.4vw,34px);line-height:1.4;color:var(--rose-soft);opacity:.92;
   text-shadow:0 0 24px rgba(142,16,36,.55);margin-top:14px;letter-spacing:.02em;
-  animation:heartbeat 2.4s ease-in-out infinite,heartGlow 2.4s ease-in-out infinite;}
+  animation:heartbeat 3.8s ease-in-out infinite,heartGlow 3.8s ease-in-out infinite;}
 .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .info-links,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:0;}
 .panel.active .eyebrow{animation:fadeUp 1s ease .15s both;}
 .panel.active .ch-num{animation:fadeUp 1s ease .05s both;}
 .panel.active .sec-title{animation:fadeUp 1.1s cubic-bezier(.16,1,.3,1) .3s both,titleShine 2.2s ease-in-out 1.15s 1 both;}
 .panel.active .sec-sub{animation:fadeUp 1.1s ease .5s both;}
 .panel.active .verse{animation:fadeIn 1.4s ease .75s both;}
-.panel.active .quote-en{animation:fadeIn 1.4s ease .9s both,heartbeat 2.4s ease-in-out 2.3s infinite,heartGlow 2.4s ease-in-out 2.3s infinite;}
+.panel.active .quote-en{animation:fadeIn 1.4s ease .9s both,heartbeat 3.8s ease-in-out 2.3s infinite,heartGlow 3.8s ease-in-out 2.3s infinite;}
 .panel.active .card{animation:fadeUp 1.1s ease .35s both;}
 .panel.active .tags{animation:fadeUp 1s ease .4s both;}
 .panel.active .style-note{animation:fadeIn 1.4s ease .95s both;}
@@ -157,7 +157,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .panel.active .frame{animation:fadeIn 1.6s ease .3s both;}
 .panel.active .divider{animation:fadeIn 1.4s ease .65s both;}
 .panel.active .links{animation:fadeUp 1s ease .45s both;}
-.panel.active .seal{animation:fadeIn 1.4s ease .95s both,sealBeat 2.6s ease-in-out 2.4s infinite;}
+.panel.active .seal{animation:fadeIn 1.4s ease .95s both,sealBeat 4.2s ease-in-out 2.4s infinite;}
 .panel.active .ending{animation:fadeIn 1.4s ease .9s both;}
 .panel.active .epigraph{animation:fadeIn 1.4s ease .8s both;}
 .panel.active .epigraph-sub{animation:fadeIn 1.4s ease .95s both;}
@@ -235,7 +235,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .card .struck{margin-top:18px;padding-top:16px;border-top:1px solid rgba(217,210,218,.1);text-align:left;color:var(--bone-dim);font-size:14.5px;line-height:2;font-family:var(--font-serif);opacity:1;text-shadow:var(--stroke);}
 .card .struck span{text-decoration:line-through;text-decoration-color:rgba(201,24,58,.55);}
 .card .gothic{margin-top:20px;font-family:var(--font-gothic);font-size:clamp(17px,2.6vw,24px);color:var(--rose-soft);text-align:center;line-height:1.5;text-shadow:0 0 20px rgba(142,16,36,.5);
-  animation:heartbeat 2.4s ease-in-out infinite,heartGlow 2.4s ease-in-out infinite;}
+  animation:heartbeat 3.8s ease-in-out infinite,heartGlow 3.8s ease-in-out infinite;}
 
 /* ===== 风格 / 装扮：雕版词条 ===== */
 .tag-group{margin-top:24px;width:100%;max-width:660px;}
@@ -294,7 +294,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-heartbeat-v1 */
+/* qj-heartbeat-slower-v1 */
 </style>
 </head>
 <body>
