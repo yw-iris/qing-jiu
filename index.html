@@ -15,7 +15,6 @@
   --rose:#c9183a;--rose-deep:#8e1024;--rose-soft:#e25370;
   --bone:#ece7ee;--bone-dim:#cfc8d4;
   --accent:#c9183a;--accent-soft:#d56b7e;--accent-warm:#d9d2da;
-  --gold:#caa24e;--gold-soft:#e6cd8a;
   --text-bright:#fbf8fb;
   --stroke:0 1px 13px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.72);
   --border:rgba(217,210,218,.18);
@@ -52,6 +51,10 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .panel-bg.dim::after{background:
   linear-gradient(180deg,rgba(6,4,10,.46),rgba(6,4,10,.38) 42%,rgba(6,4,10,.7)),
   radial-gradient(120% 120% at 50% 44%,rgba(5,3,8,.18) 30%,rgba(5,3,8,.8) 100%);}
+/* 底图上层：银色线框时钟纹路 */
+.panel-bg::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.3;mix-blend-mode:screen;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200' fill='none' stroke='rgba(217,210,218,.6)' stroke-width='1'><circle cx='100' cy='100' r='86'/><circle cx='100' cy='100' r='78' stroke='rgba(217,210,218,.3)'/><line x1='100' y1='14' x2='100' y2='29'/><line x1='143' y1='25.5' x2='139.5' y2='31.5'/><line x1='174.5' y1='57' x2='168.4' y2='60.5'/><line x1='186' y1='100' x2='171' y2='100'/><line x1='174.5' y1='143' x2='168.4' y2='139.5'/><line x1='143' y1='174.5' x2='139.5' y2='168.4'/><line x1='100' y1='186' x2='100' y2='171'/><line x1='57' y1='174.5' x2='60.5' y2='168.4'/><line x1='25.5' y1='143' x2='31.5' y2='139.5'/><line x1='14' y1='100' x2='29' y2='100'/><line x1='25.5' y1='57' x2='31.5' y2='60.5'/><line x1='57' y1='25.5' x2='60.5' y2='31.5'/><line x1='52.4' y1='72.5' x2='100' y2='100' stroke-width='2'/><line x1='162.4' y1='64' x2='100' y2='100' stroke-width='1.5'/><circle cx='100' cy='100' r='3' fill='rgba(217,210,218,.7)' stroke='none'/></svg>");
+  background-position:center;background-size:min(70vmin,560px);background-repeat:no-repeat;}
 .panel.active .panel-bg{opacity:1;}
 .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");}
@@ -61,15 +64,15 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 
 /* ===== 全局页面边框（巴洛克双线 + 四角雕花，盖于底图之上） ===== */
 .page-frame{position:fixed;inset:0;z-index:150;pointer-events:none;}
-.page-frame .pf-line{position:absolute;inset:15px;border:1px solid rgba(202,162,78,.5);border-radius:2px;
-  box-shadow:0 0 26px rgba(202,162,78,.16),inset 0 0 26px rgba(202,162,78,.12);}
-.page-frame .pf-line.inner{inset:20px;border-color:rgba(202,162,78,.28);box-shadow:none;}
-.page-frame .pf-corner{position:absolute;width:66px;height:66px;color:rgba(230,205,138,.82);}
+.page-frame .pf-line{position:absolute;inset:15px;border:1px solid rgba(217,210,218,.34);border-radius:2px;
+  box-shadow:0 0 26px rgba(142,16,36,.14),inset 0 0 26px rgba(142,16,36,.1);}
+.page-frame .pf-line.inner{inset:20px;border-color:rgba(217,210,218,.15);box-shadow:none;}
+.page-frame .pf-corner{position:absolute;width:66px;height:66px;color:rgba(224,217,224,.55);}
 .page-frame .pf-corner.tl{top:7px;left:7px;}
 .page-frame .pf-corner.tr{top:7px;right:7px;transform:scaleX(-1);}
 .page-frame .pf-corner.bl{bottom:7px;left:7px;transform:scaleY(-1);}
 .page-frame .pf-corner.br{bottom:7px;right:7px;transform:scale(-1);}
-.page-frame .pf-corner svg{width:100%;height:100%;filter:drop-shadow(0 0 8px rgba(202,162,78,.6));}
+.page-frame .pf-corner svg{width:100%;height:100%;filter:drop-shadow(0 0 7px rgba(142,16,36,.55));}
 
 /* ===== 时钟 ===== */
 .clock{position:fixed;left:20px;top:20px;z-index:160;font-family:var(--font-latin);font-size:13px;letter-spacing:.3em;
@@ -119,8 +122,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .panel-inner{width:100%;max-width:940px;margin:auto 0;display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:13vh 9vw;box-sizing:border-box;position:relative;z-index:1;}
 .panel.active{opacity:1;visibility:visible;transform:none;filter:blur(0);}
-.eyebrow{font-size:11.5px;letter-spacing:.6em;color:var(--bone-dim);margin-bottom:24px;font-family:var(--font-latin);text-transform:uppercase;
-  display:inline-flex;align-items:center;gap:16px;}
+.eyebrow{font-size:13px;letter-spacing:.46em;color:var(--bone);font-weight:500;margin-bottom:22px;font-family:var(--font-latin);text-transform:uppercase;text-shadow:var(--stroke);
+  display:inline-flex;align-items:center;gap:14px;}
 .eyebrow::before,.eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(217,210,218,.55));}
 .eyebrow::after{background:linear-gradient(90deg,rgba(217,210,218,.55),transparent);}
 .sec-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(33px,5.8vw,60px);letter-spacing:.06em;line-height:1.4;
@@ -154,11 +157,11 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .divider svg{width:100%;height:100%;}
 
 /* ===== 封面画框（巴洛克双线 + 雕花角） ===== */
-.frame{position:relative;padding:48px 58px;border:1px solid rgba(202,162,78,.45);border-radius:2px;
-  box-shadow:0 0 80px rgba(202,162,78,.16),inset 0 0 70px rgba(0,0,0,.55);
+.frame{position:relative;padding:48px 58px;border:1px solid rgba(217,210,218,.28);border-radius:2px;
+  box-shadow:0 0 80px rgba(142,16,36,.12),inset 0 0 70px rgba(0,0,0,.55);
   background:linear-gradient(165deg,rgba(22,15,26,.5),rgba(6,4,8,.65));}
-.frame::before{content:"";position:absolute;inset:7px;border:1px solid rgba(202,162,78,.22);pointer-events:none;}
-.frame .fc{position:absolute;width:34px;height:34px;color:rgba(230,205,138,.88);}
+.frame::before{content:"";position:absolute;inset:7px;border:1px solid rgba(217,210,218,.12);pointer-events:none;}
+.frame .fc{position:absolute;width:34px;height:34px;color:rgba(217,210,218,.6);}
 .frame .fc svg{width:100%;height:100%;}
 .frame .fc.tl{top:-8px;left:-8px;}
 .frame .fc.tr{top:-8px;right:-8px;transform:scaleX(-1);}
@@ -244,7 +247,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider{opacity:1!important;}
 }
 
-/* qj-gold-smalltext-v1 */
+/* qj-silver-clock-v1 */
 </style>
 </head>
 <body>
@@ -320,7 +323,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg" style="background-image:url('bg2.jpg')"></div>
     <div class="eyebrow">About · Self Introduction</div>
     <h2 class="sec-title">清酒</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="card">
       <div class="ledger">
         <div class="row"><span class="k">Name</span><span class="v">清酒</span></div>
@@ -342,7 +345,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg dim" style="background-image:url('bg3.jpg')"></div>
     <div class="eyebrow">Style · 一览</div>
     <h2 class="sec-title">我是什么样的人</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="tag-group">
       <div class="style-line">温病<i>丨</i>微擦<i>丨</i>逻辑<i>丨</i>诡辩</div>
       <div class="style-line">中高<i>丨</i>高擦<i>丨</i>白话<i>丨</i>恶趣味…</div>
@@ -355,7 +358,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg" style="background-image:url('bg4.jpg')"></div>
     <div class="eyebrow">Outfit · 常驻装扮</div>
     <h2 class="sec-title">我常穿在身上的</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="tags" style="margin-top:26px;">
       <span class="tag">白枭</span><span class="tag">耳虚</span><span class="tag">阿努比斯</span>
     </div>
@@ -366,7 +369,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg dim" style="background-image:url('bg5.jpg')"></div>
     <div class="eyebrow">More · 了解更多</div>
     <h2 class="sec-title">了解更多的我</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(202,162,78,.62)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="info-links">
       <a class="link-btn" href="https://www.kdocs.cn/l/cggVSeUGggXU" target="_blank" rel="noopener">
         <span class="lk-k">板评</span><span class="lk-v">角色评测 · 细致拆解</span><span class="lk-arrow">&#8599;</span>
@@ -412,7 +415,7 @@ document.querySelectorAll('.panel').forEach((p,i)=>{
   if(i===0)return;
   const inner=p.querySelector('.panel-inner');if(!inner)return;
   const n=document.createElement('div');n.className='ch-num';
-  n.style.cssText='font-family:var(--font-latin);font-size:11px;letter-spacing:.4em;color:var(--text-faint);margin-bottom:14px;opacity:.75;';
+  n.style.cssText='font-family:var(--font-latin);font-size:12px;letter-spacing:.36em;color:var(--bone-dim);margin-bottom:14px;opacity:.9;text-shadow:var(--stroke);';
   n.textContent='// '+String(i+1).padStart(2,'0')+' · '+CH[i];
   inner.insertBefore(n,inner.firstChild);
 });
