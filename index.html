@@ -233,6 +233,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .flip-front,.flip-back{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:260px;border:1px solid var(--border);border-radius:2px;background:rgba(14,9,17,.5);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:30px 36px;box-shadow:0 0 50px rgba(142,16,36,.07),inset 0 0 44px rgba(0,0,0,.4);}
 .flip-front::before,.flip-back::before{content:"";position:absolute;inset:6px;border:1px solid rgba(217,210,218,.1);pointer-events:none;}
 .flip-back{transform:rotateY(180deg);text-align:center;}
+.flip-front{flex-direction:column;gap:20px;}
+.flip-tip{font-family:var(--font-latin);font-size:12.5px;letter-spacing:.26em;color:var(--bone-dim);opacity:.6;text-shadow:var(--stroke);}
 .flip-hint{font-size:34px;line-height:1;color:var(--crimson);opacity:.3;text-shadow:0 0 18px rgba(193,18,31,.5);user-select:none;pointer-events:none;}
 .ledger{text-align:left;width:100%;}
 .ledger .row{display:flex;align-items:baseline;gap:16px;padding:9px 2px;border-bottom:1px solid rgba(217,210,218,.1);}
@@ -304,7 +306,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .flip-card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-flipcard-info-front-v1 */
+/* qj-flipcard-tip-v1 */
 </style>
 </head>
 <body>
@@ -396,6 +398,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
             <div class="row"><span class="k">Timbre</span><span class="v">le-T 少女 / 少御</span></div>
             <div class="row"><span class="k">Label</span><span class="v">八无好女人</span></div>
           </div>
+          <div class="flip-tip">轻触卡牌翻面</div>
           <span class="flip-corner">⟳</span>
         </div>
         <div class="flip-back">
