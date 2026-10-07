@@ -85,11 +85,11 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 /* ===== 音乐 ===== */
 .music{position:fixed;right:20px;bottom:20px;z-index:60;display:flex;align-items:center;gap:10px;}
 .music .hint{font-size:11px;letter-spacing:.12em;color:var(--text-faint);}
-.music.show-hint .hint{opacity:.9;animation:hintpulse 2.6s ease-in-out infinite;}
+.music.show-hint .hint{opacity:1;animation:loadblink 1.3s steps(1) infinite;}
 .music .btn{width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:rgba(12,8,14,.55);color:var(--bone-dim);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:15px;backdrop-filter:blur(6px);}
 .music .btn:hover{color:var(--rose-soft);}
 .music .vol{width:70px;accent-color:var(--rose);}
-@keyframes hintpulse{0%,100%{opacity:.4;}50%{opacity:.95;}}
+@keyframes loadblink{0%,100%{opacity:.3;}50%{opacity:1;}}
 
 /* ===== 卡片式翻页 ===== */
 #deck{position:fixed;inset:0;z-index:5;touch-action:pan-y;}
@@ -206,6 +206,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 /* ===== 风格 / 装扮：雕版词条 ===== */
 .tag-group{margin-top:24px;width:100%;max-width:660px;}
 .tag-group-label{font-family:var(--font-latin);font-size:11px;letter-spacing:.5em;color:var(--text-faint);margin-bottom:14px;text-transform:uppercase;}
+.style-line{font-family:var(--font-serif);font-size:clamp(17px,2.4vw,22px);color:var(--bone);letter-spacing:.12em;margin:9px 0;font-weight:500;}
+.style-line i{font-style:normal;color:var(--rose-soft);margin:0 .42em;font-size:.8em;opacity:.85;}
 .tags{display:flex;flex-wrap:wrap;gap:10px 0;justify-content:center;align-items:center;}
 .tag{padding:8px 20px;border:1px solid rgba(217,210,218,.22);border-radius:1px;font-size:14.5px;letter-spacing:.16em;color:var(--bone);font-family:var(--font-serif);background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,0));transition:all .3s;position:relative;}
 .tag:not(:first-child){margin-left:10px;}
@@ -285,7 +287,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 <div class="cursor"></div>
 
 <div class="music show-hint" id="music">
-  <span class="hint">轻触任意处，歌会起 ♪</span>
+  <span class="hint" id="mHint">网易云音乐加载中… ♪</span>
   <div class="btn" id="mBtn">♪</div>
   <input class="vol" id="mVol" type="range" min="0" max="100" value="26" aria-label="音量">
 </div>
@@ -390,16 +392,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <h2 class="sec-title">我是什么样的人</h2>
     <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
     <div class="tag-group">
-      <div class="tag-group-label">Main · 主调</div>
-      <div class="tags">
-        <span class="tag">温病</span><span class="tag">微擦</span><span class="tag">逻辑</span><span class="tag">诡辩</span>
-      </div>
-    </div>
-    <div class="tag-group">
-      <div class="tag-group-label">Sub · 副调</div>
-      <div class="tags">
-        <span class="tag">中高</span><span class="tag">高擦</span><span class="tag">白话</span><span class="tag">恶趣味</span>
-      </div>
+      <div class="style-line">温病<i>丨</i>微擦<i>丨</i>逻辑<i>丨</i>诡辩</div>
+      <div class="style-line">中高<i>丨</i>高擦<i>丨</i>白话<i>丨</i>恶趣味…</div>
     </div>
     <div class="style-note">随机掉落，风格随你转变，<br>有小部分概率<em>低无</em>。</div>
   </section>
@@ -600,15 +594,16 @@ show(0);
   bgm.id='bgm';bgm.loop=true;bgm.preload='auto';
   bgm.src='https://yw-iris.github.io/xuehua/bgm.mp3';
   document.body.appendChild(bgm);
-  const btn=document.getElementById('mBtn'),vol=document.getElementById('mVol'),music=document.getElementById('music');
+  const btn=document.getElementById('mBtn'),vol=document.getElementById('mVol'),music=document.getElementById('music'),mHint=document.getElementById('mHint');
   bgm.volume=(+vol.value)/100;
   vol.addEventListener('input',()=>{bgm.volume=(+vol.value)/100;});
-  function tryPlay(){bgm.play().then(()=>{music.classList.remove('show-hint');}).catch(()=>{});}
+  function setPlaying(on){music.classList.remove('show-hint');mHint.textContent=on?'♪ 正在播放 · 网易云':'♪ 已暂停';}
+  function tryPlay(){bgm.play().then(()=>setPlaying(true)).catch(()=>{});}
   function initPlay(){tryPlay();document.removeEventListener('touchstart',initPlay);}
   addEventListener('load',()=>{tryPlay();});
   document.addEventListener('pointerdown',initPlay,{once:true});
   document.addEventListener('touchstart',initPlay,{once:true});
-  btn.addEventListener('click',e=>{e.stopPropagation();if(bgm.paused){bgm.play();music.classList.remove('show-hint');}else bgm.pause();});
+  btn.addEventListener('click',e=>{e.stopPropagation();if(bgm.paused){bgm.play().then(()=>setPlaying(true));}else{bgm.pause();setPlaying(false);}});
 })();
 </script>
 </body>
