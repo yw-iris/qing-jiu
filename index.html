@@ -131,7 +131,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .verse::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,24,58,.8),transparent);}
 .quote-en{font-family:var(--font-gothic);font-size:clamp(20px,3.4vw,34px);line-height:1.4;color:var(--rose-soft);opacity:.92;
   text-shadow:0 0 24px rgba(142,16,36,.55);margin-top:14px;letter-spacing:.02em;}
-.panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider{opacity:0;}
+.panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .info-links,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider{opacity:0;}
 .panel.active .eyebrow{animation:fadeUp 1s ease .15s both;}
 .panel.active .ch-num{animation:fadeUp 1s ease .05s both;}
 .panel.active .sec-title{animation:fadeUp 1.1s cubic-bezier(.16,1,.3,1) .3s both;}
@@ -141,6 +141,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .panel.active .card{animation:fadeUp 1.1s ease .35s both;}
 .panel.active .tags{animation:fadeUp 1s ease .4s both;}
 .panel.active .style-note{animation:fadeIn 1.4s ease .95s both;}
+.panel.active .info-links{animation:fadeUp 1.1s ease .5s both;}
 .panel.active .frame{animation:fadeIn 1.6s ease .3s both;}
 .panel.active .divider{animation:fadeIn 1.4s ease .65s both;}
 .panel.active .links{animation:fadeUp 1s ease .45s both;}
@@ -198,6 +199,17 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .style-note{margin-top:24px;font-family:var(--font-serif);color:var(--bone);font-size:15.5px;font-weight:500;letter-spacing:.08em;max-width:560px;line-height:2.1;opacity:1;text-shadow:var(--stroke);}
 .style-note em{font-style:normal;color:var(--rose-soft);}
 
+/* ===== 了解更多：可点击文档入口 ===== */
+.info-links{margin-top:26px;width:100%;max-width:560px;display:flex;flex-direction:column;gap:14px;}
+.link-btn{display:flex;align-items:center;gap:16px;padding:15px 22px;border:1px solid rgba(217,210,218,.22);border-radius:2px;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,0));text-decoration:none;color:var(--text-bright);transition:all .3s;position:relative;overflow:hidden;}
+.link-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--rose),var(--rose-deep));opacity:0;transition:opacity .3s;}
+.link-btn:hover,.link-btn:focus-visible{border-color:rgba(201,24,58,.6);background:linear-gradient(180deg,rgba(142,16,36,.2),rgba(142,16,36,.05));box-shadow:0 0 22px rgba(201,24,58,.3);transform:translateX(4px);outline:none;}
+.link-btn:hover::before,.link-btn:focus-visible::before{opacity:1;}
+.link-btn .lk-k{font-family:var(--font-serif);font-weight:700;font-size:19px;letter-spacing:.16em;color:var(--text-bright);min-width:64px;text-align:left;}
+.link-btn .lk-v{font-family:var(--font-serif);font-size:14px;color:var(--bone);letter-spacing:.04em;flex:1;text-align:left;opacity:.9;}
+.link-btn .lk-arrow{font-family:var(--font-latin);font-size:18px;color:var(--rose-soft);opacity:.65;transition:transform .3s,opacity .3s;}
+.link-btn:hover .lk-arrow,.link-btn:focus-visible .lk-arrow{transform:translate(3px,-3px);opacity:1;}
+
 /* ===== 结尾 ===== */
 .ending-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:40vh;color:rgba(217,210,218,.045);z-index:0;pointer-events:none;user-select:none;}
 .seal{margin:20px auto 0;width:72px;height:72px;border:1px solid var(--rose);outline:1px solid rgba(201,24,58,.3);outline-offset:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:38px;color:var(--rose-soft);box-shadow:0 0 26px rgba(142,16,36,.4);background:rgba(142,16,36,.07);border-radius:1px;}
@@ -231,7 +243,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider{opacity:1!important;}
 }
 
-/* qj-rot-right-burst-v1 */
+/* qj-moreinfo-v1 */
 </style>
 </head>
 <body>
@@ -256,7 +268,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   <div class="dot" data-i="1"><span class="tip">关于我</span></div>
   <div class="dot" data-i="2"><span class="tip">风格一览</span></div>
   <div class="dot" data-i="3"><span class="tip">常驻装扮</span></div>
-  <div class="dot" data-i="4"><span class="tip">结尾</span></div>
+  <div class="dot" data-i="4"><span class="tip">了解更多</span></div>
+  <div class="dot" data-i="5"><span class="tip">结尾</span></div>
 </div>
 
 <div class="nav-ctrl">
@@ -347,9 +360,29 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     </div>
   </section>
 
-  <!-- 4 结尾 -->
-  <section class="panel" id="more">
+  <!-- 4 了解更多 -->
+  <section class="panel" id="moreinfo">
     <div class="panel-bg dim" style="background-image:url('bg5.jpg')"></div>
+    <div class="eyebrow">More · 了解更多</div>
+    <h2 class="sec-title">了解更多的我</h2>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="info-links">
+      <a class="link-btn" href="https://www.kdocs.cn/l/cggVSeUGggXU" target="_blank" rel="noopener">
+        <span class="lk-k">板评</span><span class="lk-v">角色评测 · 细致拆解</span><span class="lk-arrow">&#8599;</span>
+      </a>
+      <a class="link-btn" href="https://www.kdocs.cn/l/cfwCs9kjvETM" target="_blank" rel="noopener">
+        <span class="lk-k">话术</span><span class="lk-v">常用语言 · 接梗套路</span><span class="lk-arrow">&#8599;</span>
+      </a>
+      <a class="link-btn" href="https://www.kdocs.cn/l/cjHTfFZ0HCSB" target="_blank" rel="noopener">
+        <span class="lk-k">卡类</span><span class="lk-v">卡片种类 · 收藏图鉴</span><span class="lk-arrow">&#8599;</span>
+      </a>
+    </div>
+    <div class="style-note">轻点任意一处 <span style="color:var(--rose-soft)">&#8599;</span> 前往对应文档</div>
+  </section>
+
+  <!-- 5 结尾 -->
+  <section class="panel" id="more">
+    <div class="panel-bg dim" style="background-image:url('bg1.jpg')"></div>
     <div class="ending-ghost" aria-hidden="true">酒</div>
     <div class="eyebrow">Ending · 尾声</div>
     <h2 class="sec-title">这一帧，只属于我们</h2>
@@ -373,7 +406,7 @@ document.querySelectorAll('.panel').forEach(p=>{
 });
 
 /* 章节编号 */
-const CH=['封面','关于我','风格','装扮','结尾'];
+const CH=['封面','关于我','风格','装扮','了解更多','结尾'];
 document.querySelectorAll('.panel').forEach((p,i)=>{
   if(i===0)return;
   const inner=p.querySelector('.panel-inner');if(!inner)return;
