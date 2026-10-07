@@ -264,7 +264,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-remove-moreinfo-orn-v1 */
+/* qj-noburst-v1 */
 </style>
 </head>
 <body>
@@ -458,21 +458,6 @@ const ROSE=['179,18,46','201,24,58','143,10,34','214,69,96'];
 const ASH=['190,182,196','150,142,158','216,210,222'];
 function mkPetal(){return{petal:true,x:Math.random()*W,y:Math.random()*H,s:Math.random()*7+4,vy:Math.random()*0.5+0.28,vx:(Math.random()-0.5)*0.4,rot:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.014,sw:Math.random()*Math.PI*2,sws:Math.random()*0.014+0.006,o:Math.random()*0.4+0.34,c:ROSE[Math.floor(Math.random()*ROSE.length)]};}
 function mkAsh(){return{petal:false,x:Math.random()*W,y:Math.random()*H,s:Math.random()*1.5+0.5,vy:Math.random()*0.35+0.12,vx:(Math.random()-0.5)*0.3,o:Math.random()*0.25+0.1,tw:Math.random()*Math.PI*2,tws:Math.random()*0.03+0.01,c:ASH[Math.floor(Math.random()*ASH.length)]};}
-/* 翻页时向四周迸发的花瓣：更大、更亮、停留更久 */
-function mkBurst(x,y){
-  const N=innerWidth<700?18:34;
-  for(let i=0;i<N;i++){
-    const ang=Math.random()*Math.PI*2,sp=Math.random()*2.6+0.6,o0=Math.random()*0.3+0.62;
-    ps.push({petal:true,burst:true,
-      x:x+(Math.random()-0.5)*30,y:y+(Math.random()-0.5)*30,
-      s:Math.random()*7+7,
-      vx:Math.cos(ang)*sp,vy:Math.sin(ang)*sp-1.4,
-      rot:Math.random()*Math.PI*2,vr:(Math.random()-0.5)*0.06,
-      sw:Math.random()*Math.PI*2,sws:Math.random()*0.02+0.01,
-      o:o0,o0:o0,c:ROSE[Math.floor(Math.random()*ROSE.length)],
-      life:0,maxLife:innerWidth<700?170:220});
-  }
-}
 const NP=innerWidth<700?22:42,NA=innerWidth<700?26:54;
 for(let i=0;i<NP;i++)ps.push(mkPetal());
 for(let i=0;i<NA;i++)ps.push(mkAsh());
@@ -494,15 +479,7 @@ function draw(){
   frame++;ctx.clearRect(0,0,W,H);
   for(let k=ps.length-1;k>=0;k--){
     const p=ps[k];
-    if(p.burst){
-      p.life++;
-      const fade=p.life<p.maxLife*0.45?1:Math.max(0,1-(p.life-p.maxLife*0.45)/(p.maxLife*0.55));
-      if(fade<=0){ps.splice(k,1);continue;}
-      p.vy+=0.05;p.vx*=0.985;
-      p.y+=p.vy;p.x+=p.vx+Math.sin(frame*p.sws+p.sw)*0.5;p.rot+=p.vr;p.sw+=p.sws;
-      p.o=p.o0*fade;
-      drawPetal(p);
-    }else if(p.petal){
+    if(p.petal){
       p.y+=p.vy;p.x+=p.vx+Math.sin(frame*p.sws+p.sw)*0.55;p.rot+=p.vr;p.sw+=p.sws;
       if(p.y>H+14){p.y=-14;p.x=Math.random()*W;}
       if(p.x>W+16)p.x=-16;if(p.x<-16)p.x=W+16;
@@ -556,7 +533,6 @@ if(!REDUCE)drawR();
 /* ===== 光标（酒瓶） ===== */
 const cur=document.getElementById('cur');
 let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
-let lastPx=innerWidth/2,lastPy=innerHeight/2;
 addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;onMove(e.clientX,e.clientY,performance.now());});
 addEventListener('mouseover',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.add('big');});
 addEventListener('mouseout',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.remove('big');});
@@ -574,7 +550,6 @@ function show(i){
   dots.forEach((d,k)=>d.classList.toggle('active',k===i));
   chap.textContent=RN[i]+' / '+RN[panels.length-1];
   p.classList.remove('active');void p.offsetWidth;p.classList.add('active');
-  if(!REDUCE)mkBurst(lastPx,lastPy);
   cur2=i;
 }
 dots.forEach(d=>d.addEventListener('click',()=>show(+d.dataset.i)));
@@ -598,7 +573,6 @@ function startPour(x,y,e){
 function stopPour(){if(cur)setTimeout(()=>cur.classList.remove('pouring'),720);}
 deck.addEventListener('pointerdown',e=>{
   pX=e.clientX;pY=e.clientY;pT=Date.now();
-  lastPx=e.clientX;lastPy=e.clientY;
   if(!isUI(e.target))startPour(e.clientX,e.clientY,e);
 },{passive:true});
 deck.addEventListener('pointerup',e=>{
