@@ -62,12 +62,6 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   background:radial-gradient(120% 120% at 50% 45%, transparent 48%, rgba(0,0,0,.68) 100%);}
 #petals{position:fixed;inset:0;z-index:3;pointer-events:none;}
 #ripple{position:fixed;inset:0;z-index:140;pointer-events:none;mix-blend-mode:screen;}
-#mist{position:fixed;inset:0;z-index:130;pointer-events:none;--mx:50%;--my:50%;
-  background:radial-gradient(120% 120% at 50% 40%,rgba(208,216,226,.1),rgba(196,206,218,.22));
-  -webkit-backdrop-filter:blur(7px) brightness(1.08) saturate(1.04);
-  backdrop-filter:blur(7px) brightness(1.08) saturate(1.04);
-  -webkit-mask-image:radial-gradient(circle 165px at var(--mx) var(--my),transparent 0,transparent 58px,rgba(0,0,0,.7) 140px,#000 250px);
-  mask-image:radial-gradient(circle 165px at var(--mx) var(--my),transparent 0,transparent 58px,rgba(0,0,0,.7) 140px,#000 250px);}
 
 /* ===== 全局页面边框（巴洛克双线 + 四角雕花，盖于底图之上） ===== */
 .page-frame{position:fixed;inset:0;z-index:150;pointer-events:none;}
@@ -270,7 +264,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-mist-v1 */
+/* qj-ripple-v1 */
 </style>
 </head>
 <body>
@@ -279,7 +273,6 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 <div class="vignette"></div>
 <canvas id="petals"></canvas>
 <canvas id="ripple"></canvas>
-<div id="mist"></div>
 
 <div class="page-frame" aria-hidden="true">
   <span class="pf-line"></span>
@@ -531,8 +524,6 @@ else draw();
 
 /* ===== 鼠标划过的水波纹 ===== */
 const rcvs=document.getElementById('ripple'),rctx=rcvs.getContext('2d');
-const mist=document.getElementById('mist');
-function moveMist(x,y){mist.style.setProperty('--mx',x+'px');mist.style.setProperty('--my',y+'px');}
 function resizeR(){rcvs.width=innerWidth;rcvs.height=innerHeight;}
 resizeR();addEventListener('resize',resizeR);
 let ripples=[],lastRx=null,lastRy=null,lastRt=0;
@@ -546,7 +537,7 @@ function onMove(x,y,t){
   const d=Math.hypot(x-lastRx,y-lastRy);
   if(d>20||t-lastRt>55){mkRipple(x,y);lastRx=x;lastRy=y;lastRt=t;}
 }
-addEventListener('touchmove',e=>{const t=e.touches[0];if(t){onMove(t.clientX,t.clientY,performance.now());moveMist(t.clientX,t.clientY);}},{passive:true});
+addEventListener('touchmove',e=>{const t=e.touches[0];if(t)onMove(t.clientX,t.clientY,performance.now());},{passive:true});
 function drawR(){
   rctx.clearRect(0,0,rcvs.width,rcvs.height);
   for(let k=ripples.length-1;k>=0;k--){
@@ -568,7 +559,7 @@ if(!REDUCE)drawR();
 const cur=document.getElementById('cur');
 let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
 let lastPx=innerWidth/2,lastPy=innerHeight/2;
-addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;onMove(e.clientX,e.clientY,performance.now());moveMist(e.clientX,e.clientY);});
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;onMove(e.clientX,e.clientY,performance.now());});
 addEventListener('mouseover',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.add('big');});
 addEventListener('mouseout',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.remove('big');});
 (function curLoop(){cx+=(mx-cx)*0.16;cy+=(my-cy)*0.16;if(cur)cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(curLoop);})();
