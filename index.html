@@ -234,6 +234,12 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .flip-front::before,.flip-back::before{content:"";position:absolute;inset:6px;border:1px solid rgba(217,210,218,.1);pointer-events:none;}
 .flip-back{transform:rotateY(180deg);text-align:center;}
 .flip-hint{font-size:34px;line-height:1;color:var(--crimson);opacity:.3;text-shadow:0 0 18px rgba(193,18,31,.5);user-select:none;pointer-events:none;}
+.ledger{text-align:left;width:100%;}
+.ledger .row{display:flex;align-items:baseline;gap:16px;padding:9px 2px;border-bottom:1px solid rgba(217,210,218,.1);}
+.ledger .row:last-child{border-bottom:none;}
+.ledger .k{font-family:var(--font-latin);font-size:11.5px;letter-spacing:.34em;color:var(--text-faint);min-width:96px;text-transform:uppercase;}
+.ledger .v{font-family:var(--font-serif);font-size:17px;color:var(--text);letter-spacing:.06em;}
+.flip-corner{position:absolute;right:14px;bottom:10px;font-size:16px;color:var(--crimson);opacity:.28;text-shadow:0 0 12px rgba(193,18,31,.45);user-select:none;pointer-events:none;}
 .flip-back .struck{margin-top:0;padding-top:0;border-top:none;text-align:center;color:var(--bone-dim);font-size:14.5px;line-height:2;font-family:var(--font-serif);opacity:1;text-shadow:var(--stroke);}
 .flip-back .struck span{text-decoration:line-through;text-decoration-color:rgba(201,24,58,.55);}
 .flip-back .gothic{margin-top:20px;font-family:var(--font-gothic);font-size:clamp(17px,2.6vw,24px);color:var(--rose-soft);text-align:center;line-height:1.5;text-shadow:0 0 20px rgba(142,16,36,.5);
@@ -298,7 +304,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .flip-card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-heartbeat-slower2-v1 */
+/* qj-flipcard-info-front-v1 */
 </style>
 </head>
 <body>
@@ -382,8 +388,15 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="#ff3348"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(255,51,72,.95)" stroke="none"/></svg></div>
     <div class="flip-card" id="infoCard" role="button" tabindex="0" aria-label="翻转卡片查看背面">
       <div class="flip-inner">
-        <div class="flip-front" aria-hidden="true">
-          <span class="flip-hint">⟳</span>
+        <div class="flip-front">
+          <div class="ledger">
+            <div class="row"><span class="k">Name</span><span class="v">清酒</span></div>
+            <div class="row"><span class="k">Age</span><span class="v">26</span></div>
+            <div class="row"><span class="k">Zodiac</span><span class="v">白羊 Aries · 女</span></div>
+            <div class="row"><span class="k">Timbre</span><span class="v">le-T 少女 / 少御</span></div>
+            <div class="row"><span class="k">Label</span><span class="v">八无好女人</span></div>
+          </div>
+          <span class="flip-corner">⟳</span>
         </div>
         <div class="flip-back">
           <div class="struck">
