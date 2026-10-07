@@ -61,6 +61,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .vignette{position:fixed;inset:0;z-index:2;pointer-events:none;
   background:radial-gradient(120% 120% at 50% 45%, transparent 48%, rgba(0,0,0,.68) 100%);}
 #petals{position:fixed;inset:0;z-index:3;pointer-events:none;}
+#ripple{position:fixed;inset:0;z-index:140;pointer-events:none;mix-blend-mode:screen;}
 
 /* ===== 全局页面边框（巴洛克双线 + 四角雕花，盖于底图之上） ===== */
 .page-frame{position:fixed;inset:0;z-index:150;pointer-events:none;}
@@ -263,7 +264,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-orn-v1 */
+/* qj-ripple-v1 */
 </style>
 </head>
 <body>
@@ -271,6 +272,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 <div class="grain"></div>
 <div class="vignette"></div>
 <canvas id="petals"></canvas>
+<canvas id="ripple"></canvas>
 
 <div class="page-frame" aria-hidden="true">
   <span class="pf-line"></span>
@@ -520,11 +522,44 @@ function draw(){
 if(REDUCE){for(const p of ps){if(p.petal)drawPetal(p);else{ctx.beginPath();ctx.arc(p.x,p.y,p.s,0,7);ctx.fillStyle='rgba('+p.c+','+p.o+')';ctx.fill();}}}
 else draw();
 
+/* ===== 鼠标划过的水波纹 ===== */
+const rcvs=document.getElementById('ripple'),rctx=rcvs.getContext('2d');
+function resizeR(){rcvs.width=innerWidth;rcvs.height=innerHeight;}
+resizeR();addEventListener('resize',resizeR);
+let ripples=[],lastRx=null,lastRy=null,lastRt=0;
+function mkRipple(x,y){
+  if(ripples.length>56)ripples.shift();
+  ripples.push({x,y,maxR:Math.random()*48+74,life:0,maxLife:Math.random()*18+46,o:Math.random()*0.16+0.3});
+}
+function onMove(x,y,t){
+  if(REDUCE)return;
+  if(lastRx===null){lastRx=x;lastRy=y;lastRt=t;return;}
+  const d=Math.hypot(x-lastRx,y-lastRy);
+  if(d>20||t-lastRt>55){mkRipple(x,y);lastRx=x;lastRy=y;lastRt=t;}
+}
+addEventListener('touchmove',e=>{const t=e.touches[0];if(t)onMove(t.clientX,t.clientY,performance.now());},{passive:true});
+function drawR(){
+  rctx.clearRect(0,0,rcvs.width,rcvs.height);
+  for(let k=ripples.length-1;k>=0;k--){
+    const p=ripples[k];p.life++;
+    const f=p.life/p.maxLife;
+    if(f>=1){ripples.splice(k,1);continue;}
+    const r=p.maxR*f, a=p.o*(1-f)*(1-f*0.4);
+    rctx.lineWidth=1.6*(1-f)+0.35;
+    rctx.strokeStyle='rgba(217,210,218,'+a.toFixed(3)+')';
+    rctx.beginPath();rctx.arc(p.x,p.y,r,0,7);rctx.stroke();
+    rctx.strokeStyle='rgba(236,245,255,'+(a*0.55).toFixed(3)+')';
+    rctx.beginPath();rctx.arc(p.x,p.y,r*0.6,0,7);rctx.stroke();
+  }
+  requestAnimationFrame(drawR);
+}
+if(!REDUCE)drawR();
+
 /* ===== 光标（酒瓶） ===== */
 const cur=document.getElementById('cur');
 let mx=innerWidth/2,my=innerHeight/2,cx=mx,cy=my;
 let lastPx=innerWidth/2,lastPy=innerHeight/2;
-addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;onMove(e.clientX,e.clientY,performance.now());});
 addEventListener('mouseover',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.add('big');});
 addEventListener('mouseout',e=>{if(e.target.closest('a,.btn,.dot,.tag,.link-btn,.navbtn'))cur.classList.remove('big');});
 (function curLoop(){cx+=(mx-cx)*0.16;cy+=(my-cy)*0.16;if(cur)cur.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;requestAnimationFrame(curLoop);})();
