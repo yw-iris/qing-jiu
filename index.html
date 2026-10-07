@@ -6,7 +6,7 @@
 <title>这一帧 只属于我们 · 清酒</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500&family=UnifrakturMaguntia&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=ZCOOL+XiaoWei&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500&family=UnifrakturCook:wght@700&family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="bg1.jpg">
 <style>
 :root{
@@ -19,9 +19,11 @@
   --stroke:0 1px 13px rgba(0,0,0,.9),0 0 3px rgba(0,0,0,.72);
   --border:rgba(217,210,218,.18);
   --font-display:'ZCOOL XiaoWei','Ma Shan Zheng',serif;
-  --font-serif:'Noto Serif SC','Songti SC',serif;
+  --font-serif:'Noto Serif SC','Songti SC','STSong',Georgia,serif;
+  --font-kai:'Kaiti SC','STKaiti','KaiTi','Songti SC','STSong',serif;
+  --font-brush:'Zhi Mang Xing','Ma Shan Zheng',cursive;
   --font-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
-  --font-gothic:'UnifrakturMaguntia',serif;
+  --font-gothic:'UnifrakturCook',serif;
   --font-latin:'Cinzel','Cormorant Garamond',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
@@ -127,16 +129,16 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   display:inline-flex;align-items:center;gap:14px;}
 .eyebrow::before,.eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(217,210,218,.55));}
 .eyebrow::after{background:linear-gradient(90deg,rgba(217,210,218,.55),transparent);}
-.sec-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(33px,5.8vw,60px);letter-spacing:.06em;line-height:1.4;position:relative;
+.sec-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(33px,5.8vw,60px);letter-spacing:.12em;line-height:1.45;position:relative;
   background:
     linear-gradient(112deg,transparent 34%,rgba(255,255,255,.96) 47%,rgba(232,242,255,.98) 50%,rgba(255,255,255,.96) 53%,transparent 70%),
     linear-gradient(180deg,#ffffff 0%,#f3ecf1 46%,#cf9fb0 100%);
   background-size:300% 100%,100% 100%;
   background-position:160% 0,0 0;background-repeat:no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 2px 18px rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(142,16,36,.3));}
+  filter:drop-shadow(0 2px 18px rgba(0,0,0,.65)) drop-shadow(0 0 40px rgba(193,18,31,.3));}
 .sec-sub{margin-top:18px;font-size:clamp(16.5px,2.1vw,20px);font-weight:600;color:var(--text-bright);max-width:600px;line-height:2.2;font-family:var(--font-serif);text-shadow:var(--stroke);}
-.verse{position:relative;margin-top:20px;padding-top:20px;font-family:var(--font-serif);font-weight:600;font-size:clamp(16.5px,2.1vw,19.5px);color:var(--text-bright);letter-spacing:.1em;line-height:2.15;max-width:560px;opacity:1;text-shadow:var(--stroke);}
+.verse{position:relative;margin-top:20px;padding-top:20px;font-family:var(--font-kai);font-weight:400;font-size:clamp(16.5px,2.1vw,19.5px);color:var(--text-bright);letter-spacing:.08em;line-height:2.15;max-width:560px;opacity:1;text-shadow:var(--stroke);}
 .verse::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,24,58,.8),transparent);}
 .quote-en{font-family:var(--font-gothic);font-size:clamp(20px,3.4vw,34px);line-height:1.4;color:var(--rose-soft);opacity:.92;
   text-shadow:0 0 24px rgba(142,16,36,.55);margin-top:14px;letter-spacing:.02em;}
@@ -178,14 +180,14 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .frame .fc.tr{top:-8px;right:-8px;transform:scaleX(-1);}
 .frame .fc.bl{bottom:-8px;left:-8px;transform:scaleY(-1);}
 .frame .fc.br{bottom:-8px;right:-8px;transform:scale(-1);}
-#cover .title{font-family:var(--font-serif);font-weight:700;font-size:clamp(40px,7.4vw,82px);letter-spacing:.12em;line-height:1.28;position:relative;
+#cover .title{font-family:var(--font-serif);font-weight:700;font-size:clamp(40px,7.4vw,82px);letter-spacing:.16em;line-height:1.32;position:relative;
   background:
     linear-gradient(112deg,transparent 34%,rgba(255,255,255,.97) 47%,rgba(234,244,255,.99) 50%,rgba(255,255,255,.97) 53%,transparent 70%),
     linear-gradient(180deg,#ffffff 0%,#f1e8ee 48%,#b8304d 128%);
   background-size:300% 100%,100% 100%;
   background-position:160% 0,0 0;background-repeat:no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 2px 26px rgba(0,0,0,.72)) drop-shadow(0 0 34px rgba(142,16,36,.34));margin-top:10px;
+  filter:drop-shadow(0 2px 26px rgba(0,0,0,.72)) drop-shadow(0 0 52px rgba(193,18,31,.36));margin-top:10px;
   animation:titleShine 2.2s ease-in-out 1.2s 1 both;}
 #cover .epigraph{margin-top:24px;font-family:var(--font-serif);font-weight:500;font-size:clamp(16px,2.2vw,21px);color:var(--text-bright);letter-spacing:.18em;text-shadow:var(--stroke);}
 #cover .epigraph-sub{margin-top:10px;font-size:15px;color:var(--text-bright);letter-spacing:.24em;font-family:var(--font-serif);text-shadow:var(--stroke);}
@@ -226,12 +228,12 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .link-btn:hover,.link-btn:focus-visible{border-color:rgba(201,24,58,.6);background:linear-gradient(180deg,rgba(142,16,36,.2),rgba(142,16,36,.05));box-shadow:0 0 22px rgba(201,24,58,.3);transform:translateX(4px);outline:none;}
 .link-btn:hover::before,.link-btn:focus-visible::before{opacity:1;}
 .link-btn .lk-k{font-family:var(--font-serif);font-weight:700;font-size:19px;letter-spacing:.16em;color:var(--text-bright);min-width:64px;text-align:left;}
-.link-btn .lk-v{font-family:var(--font-serif);font-size:15.5px;font-weight:500;color:var(--text-bright);letter-spacing:.04em;flex:1;text-align:left;opacity:1;}
+.link-btn .lk-v{font-family:var(--font-kai);font-size:17px;font-weight:400;color:var(--text-bright);letter-spacing:.06em;flex:1;text-align:left;opacity:1;}
 .link-btn .lk-arrow{font-family:var(--font-latin);font-size:18px;color:var(--rose-soft);opacity:.65;transition:transform .3s,opacity .3s;}
 .link-btn:hover .lk-arrow,.link-btn:focus-visible .lk-arrow{transform:translate(3px,-3px);opacity:1;}
 
 /* ===== 结尾 ===== */
-.ending-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:40vh;color:rgba(217,210,218,.045);z-index:0;pointer-events:none;user-select:none;}
+.ending-ghost{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-brush);font-size:46vh;color:rgba(217,210,218,.05);z-index:0;pointer-events:none;user-select:none;}
 .seal{margin:20px auto 0;width:72px;height:72px;border:1px solid var(--rose);outline:1px solid rgba(201,24,58,.3);outline-offset:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:38px;color:var(--rose-soft);box-shadow:0 0 26px rgba(142,16,36,.4);background:rgba(142,16,36,.07);border-radius:1px;}
 .ending{margin-top:20px;font-family:var(--font-serif);font-size:16px;font-weight:500;letter-spacing:.14em;color:var(--bone);text-shadow:var(--stroke);}
 .epigraph-sub{margin-top:12px;font-size:13.5px;color:var(--text-bright);letter-spacing:.28em;font-family:var(--font-latin);text-transform:uppercase;text-shadow:var(--stroke);}
@@ -264,7 +266,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-linkv-lyrics-v1 */
+/* qj-wuci-font-v1 */
 </style>
 </head>
 <body>
