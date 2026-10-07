@@ -326,24 +326,31 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   background:radial-gradient(120% 100% at 50% 38%,#0d0913 0%,#050307 76%);
   opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease,visibility .8s;}
 #hub.open{opacity:1;visibility:visible;pointer-events:auto;}
-#hub .hub-head{position:absolute;top:6.5vh;left:0;right:0;text-align:center;pointer-events:none;z-index:4;}
-#hub .hub-head .h{font-family:var(--font-display);font-size:clamp(24px,3.8vw,40px);letter-spacing:.34em;text-indent:.34em;color:var(--bone);
+#hub .hub-head{position:absolute;top:3.6vh;left:0;right:0;text-align:center;pointer-events:none;z-index:4;}
+#hub .hub-head .h{font-family:var(--font-display);font-size:clamp(22px,3.4vw,34px);letter-spacing:.34em;text-indent:.34em;color:var(--bone);
   text-shadow:0 2px 16px rgba(0,0,0,.7),0 0 34px rgba(220,20,60,.45);}
 #hub .hub-head .rule{width:92px;height:1px;margin:13px auto 11px;background:linear-gradient(90deg,transparent,rgba(255,51,72,.7),transparent);}
 #hub .hub-head .s{font-family:var(--font-latin);font-size:10.5px;letter-spacing:.4em;text-indent:.4em;color:var(--crimson-bright);text-transform:uppercase;text-shadow:0 0 14px rgba(255,51,72,.4);}
 #hub .stage{position:absolute;inset:0;}
+/* 半圆引导弧：直径贴屏幕底部，弧顶向上 */
+#hub .hub-arc{position:absolute;left:50%;bottom:0;transform:translateX(-50%);
+  width:min(150vmin,118vw);height:calc(min(150vmin,118vw)/2);
+  border:1px solid rgba(217,210,218,.1);border-bottom:none;border-radius:50% 50% 0 0;
+  pointer-events:none;box-shadow:inset 0 0 70px rgba(142,16,36,.06);}
+#hub .hub-arc::after{content:"";position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);width:92%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,51,72,.35),transparent);}
 #hub .card{position:absolute;left:0;top:0;width:148px;height:196px;border-radius:2px;overflow:hidden;cursor:pointer;
   border:1px solid rgba(217,210,218,.26);background:#0b0810 center/cover no-repeat;
   box-shadow:0 10px 30px rgba(0,0,0,.6),inset 0 0 18px rgba(0,0,0,.55);
-  transition:transform .55s cubic-bezier(.16,1,.3,1),opacity .55s ease,border-color .4s ease,box-shadow .4s ease;
+  transition:border-color .4s ease,box-shadow .4s ease;
   will-change:transform,opacity;}
 #hub .card .scrim{position:absolute;inset:0;background:linear-gradient(180deg,rgba(8,5,12,.05) 30%,rgba(8,5,12,.82) 100%);}
 #hub .card .enter{position:absolute;top:11px;left:0;right:0;text-align:center;font-family:var(--font-latin);font-size:9.5px;letter-spacing:.34em;color:var(--crimson-bright);opacity:0;transition:opacity .4s;text-transform:uppercase;text-shadow:0 0 12px rgba(255,51,72,.5);}
-#hub .card .lab{position:absolute;left:0;right:0;bottom:30px;text-align:center;font-family:var(--font-display);font-size:18px;letter-spacing:.2em;text-indent:.2em;color:var(--bone);text-shadow:0 1px 8px rgba(0,0,0,.85);}
+#hub .card .lab{position:absolute;left:0;right:0;bottom:30px;text-align:center;font-family:var(--font-display);font-size:18px;letter-spacing:.2em;text-indent:.2em;color:var(--bone);text-shadow:0 1px 8px rgba(0,0,0,.85);transition:color .4s,text-shadow .4s;}
 #hub .card .en{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--font-latin);font-size:9px;letter-spacing:.32em;color:rgba(217,210,218,.6);text-transform:uppercase;}
-#hub .card.sel{border-color:rgba(255,51,72,.85);box-shadow:0 0 38px rgba(220,20,60,.5),0 14px 36px rgba(0,0,0,.6);}
-#hub .card.sel .lab{color:#fff;text-shadow:0 0 16px rgba(255,51,72,.6);}
-#hub .card.sel .enter{opacity:1;}
+#hub .card.front{border-color:rgba(255,51,72,.9);box-shadow:0 0 42px rgba(220,20,60,.55),0 16px 40px rgba(0,0,0,.6);}
+#hub .card.front .lab{color:#fff;text-shadow:0 0 18px rgba(255,51,72,.7);}
+#hub .card.front .enter{opacity:1;}
 #hub .hub-tip{position:absolute;bottom:5.5vh;left:0;right:0;text-align:center;font-family:var(--font-serif);font-size:12px;letter-spacing:.32em;text-indent:.32em;color:rgba(236,231,238,.42);pointer-events:none;z-index:4;text-shadow:var(--stroke);}
 .hub-open .side-nav,.hub-open .nav-ctrl,.hub-open .clock,.hub-open .music,.hub-open .page-frame{display:none!important;}
 @media (max-width:680px){
@@ -352,7 +359,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   #hub .card .en{bottom:12px;}
 }
 
-/* qj-intro-hub-v2 */
+/* qj-rot-hub-v3 */
 </style>
 </head>
 <body>
@@ -372,15 +379,17 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   <div class="skip-hint">轻触任意处进入</div>
 </div>
 
-<!-- 半圆页面选择枢纽：开场结束后进入，滚动/拖拽挑选六页进入 -->
+<!-- 半圆页面选择枢纽：开场结束后进入，滚动半圆一直旋转，轻触卡片进入 -->
 <div id="hub" aria-hidden="true">
   <div class="hub-head">
     <div class="h">清酒</div>
     <div class="rule"></div>
     <div class="s">Choose a Frame · 轻触卡片进入</div>
   </div>
-  <div class="stage"></div>
-  <div class="hub-tip">滚动 / 拖拽 挑选 · 轻触卡片进入</div>
+  <div class="stage">
+    <div class="hub-arc"></div>
+  </div>
+  <div class="hub-tip">滚动 / 拖拽 转动半圆 · 轻触卡片进入 · 再轻触页面返回</div>
 </div>
 
 
@@ -444,7 +453,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
       <div class="epigraph">爱根本不是安慰物</div>
       <div class="epigraph-sub">而是头骨中的一枚钉子</div>
       <div class="quote-en">𝔏𝔬𝔳𝔢 𝔦𝔰 𝔫𝔬𝔱 𝔞 𝔠𝔬𝔪𝔣𝔬𝔯𝔱 𝔞𝔱 𝔞𝔩𝔩,<br>𝔟𝔲𝔱 𝔞 𝔫𝔞𝔦𝔩 𝔦𝔫 𝔱𝔥𝔢 𝔰𝔨𝔲𝔩𝔩</div>
-      <div class="scroll-hint" id="cover-hint">轻点任意处 · 翻到下一帧 ›</div>
+      <div class="scroll-hint" id="cover-hint">轻点任意处 · 返回选择 ›</div>
     </div>
   </section>
 
@@ -672,7 +681,7 @@ function show(i){
 dots.forEach(d=>d.addEventListener('click',()=>show(+d.dataset.i)));
 document.getElementById('prev').addEventListener('click',()=>show(cur2-1));
 document.getElementById('next').addEventListener('click',()=>show(cur2+1));
-addEventListener('keydown',e=>{if(document.getElementById('intro')||document.body.classList.contains('hub-open'))return;if(e.key==='ArrowRight'||e.key==='ArrowDown')show(cur2+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur2-1);});
+addEventListener('keydown',e=>{const ie=document.getElementById('intro');if((ie&&!ie.classList.contains('done'))||document.body.classList.contains('hub-open'))return;if(e.key==='ArrowRight'||e.key==='ArrowDown')show(cur2+1);if(e.key==='ArrowLeft'||e.key==='ArrowUp')show(cur2-1);});
 const deck=document.getElementById('deck');
 let pX=0,pY=0,pT=0,pouringLock=false;
 function isUI(t){return t.closest('a,.btn,.dot,.tag,.link-btn,.navbtn,button,.music,.flip-card');}
@@ -695,7 +704,8 @@ deck.addEventListener('pointerdown',e=>{
 deck.addEventListener('pointerup',e=>{
   const dx=e.clientX-pX,dy=e.clientY-pY,dt=Date.now()-pT;
   if(Math.hypot(dx,dy)<14 && dt<600 && !isUI(e.target)){
-    setTimeout(()=>show(cur2+1),640);
+    if(fromHub){ returnToHub(); }
+    else { setTimeout(()=>show(cur2+1),640); }
     stopPour();
   }
 },{passive:true});
@@ -708,7 +718,7 @@ deck.addEventListener('pointerup',e=>{
   fc.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle();}});
 })();
 
-/* ===== 半圆页面选择枢纽：开场结束后进入 ===== */
+/* ===== 半圆页面选择枢纽：开场结束后进入，滚动半圆一直旋转 ===== */
 const HUB_PAGES=[
  {id:'cover',zh:'封面',en:'COVER',bg:1},
  {id:'about',zh:'关于我',en:'ABOUT',bg:2},
@@ -717,7 +727,8 @@ const HUB_PAGES=[
  {id:'moreinfo',zh:'了解更多',en:'MORE',bg:5},
  {id:'more',zh:'结尾',en:'ENDING',bg:1},
 ];
-let hubEl=null,sel=0,hubOpen=false;
+let hubEl=null,hubOpen=false,fromHub=false,rot=0,hubRAF=null,lastT=0,curFront=0,hubDragged=false;
+const HUB_ROT=0.16; // 半圆自转角速度 rad/s
 function buildHub(){
   hubEl=document.getElementById('hub');
   const stage=hubEl.querySelector('.stage');
@@ -725,51 +736,64 @@ function buildHub(){
     const c=document.createElement('div');c.className='card';c.dataset.i=i;
     c.style.backgroundImage='url(bg'+p.bg+'.jpg)';
     c.innerHTML='<div class="scrim"></div><div class="enter">ENTER ›</div><div class="lab">'+p.zh+'</div><div class="en">'+p.en+'</div>';
-    c.addEventListener('click',()=>{ sel=i; renderHub(); enterHub(); });
+    c.addEventListener('click',()=>{ if(hubDragged){hubDragged=false;return;} enterHub(i); });
     stage.appendChild(c); p.el=c;
   });
-  hubEl.addEventListener('wheel',e=>{e.preventDefault(); if(Math.abs(e.deltaY)<3)return; const d=e.deltaY>0?1:-1; sel=Math.min(5,Math.max(0,sel+d)); renderHub();},{passive:false});
-  let sx=0,dx=0;
-  hubEl.addEventListener('pointerdown',e=>{sx=e.clientX;dx=0;});
-  hubEl.addEventListener('pointermove',e=>{ if(sx) dx=e.clientX-sx; });
-  hubEl.addEventListener('pointerup',()=>{ if(sx&&Math.abs(dx)>40){ sel=Math.min(5,Math.max(0,sel+(dx<0?1:-1))); renderHub(); } sx=0; });
-  addEventListener('resize',()=>{ if(hubOpen)renderHub(); });
-  addEventListener('keydown',e=>{ if(!hubOpen)return;
-    if(e.key==='ArrowRight'||e.key==='ArrowDown'){sel=Math.min(5,sel+1);renderHub();e.preventDefault();}
-    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){sel=Math.max(0,sel-1);renderHub();e.preventDefault();}
-    else if(e.key==='Enter'||e.key===' '){enterHub();e.preventDefault();}
+  // 滚轮 / 拖拽 手动转动半圆
+  hubEl.addEventListener('wheel',e=>{e.preventDefault();rot+=e.deltaY*0.0016;},{passive:false});
+  let lastX=null;
+  hubEl.addEventListener('pointerdown',e=>{lastX=e.clientX;hubDragged=false;});
+  hubEl.addEventListener('pointermove',e=>{ if(lastX!==null){const d=e.clientX-lastX;rot+=d*0.004;if(Math.abs(d)>8)hubDragged=true;lastX=e.clientX;} });
+  hubEl.addEventListener('pointerup',()=>{lastX=null;});
+  addEventListener('keydown',e=>{
+    if(!hubOpen)return;
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'){rot+=0.5;e.preventDefault();}
+    else if(e.key==='ArrowLeft'||e.key==='ArrowUp'){rot-=0.5;e.preventDefault();}
+    else if(e.key==='Enter'||e.key===' '){enterHub(curFront);e.preventDefault();}
   });
 }
-function renderHub(){
-  const cx=innerWidth/2;
-  const Rx=Math.min(innerWidth*0.40,innerHeight*0.72);
-  const Ry=innerHeight*0.5;
-  const cyv=innerHeight*0.40+Ry;
+/* 每帧把六页铺在「直径贴底、弧顶向上」的半圆上，并持续自转 */
+function renderHub(ts){
+  if(!hubOpen){hubRAF=null;return;}
+  if(!lastT)lastT=ts; else rot+=HUB_ROT*(ts-lastT)/1000;
+  lastT=ts;
+  const cx=innerWidth/2, cy=innerHeight*0.97;
+  const R=Math.min(innerHeight*0.62,innerWidth*0.6);
+  const N=HUB_PAGES.length; let frontI=-1, frontD=1e9;
   HUB_PAGES.forEach((p,i)=>{
+    let a=((i*(2*Math.PI/N))+rot)%(2*Math.PI); if(a<0)a+=2*Math.PI;
+    const s=Math.sin(a);
+    const x=cx+R*Math.cos(a), y=cy-R*s;
     const c=p.el;
-    const th=(-75+i*30)*Math.PI/180;
-    const x=cx+Rx*Math.sin(th);
-    const y=cyv-Ry*Math.cos(th);
-    const isSel=i===sel;
-    const sc=isSel?1.12:0.86;
-    const op=isSel?1:0.55;
-    const cw=c.offsetWidth||148, ch=c.offsetHeight||196;
-    c.style.transform='translate3d('+(x-cw/2).toFixed(1)+'px,'+(y-ch/2).toFixed(1)+'px,0) scale('+sc.toFixed(3)+')';
+    const onArc=s>0.02;
+    const sc=0.46+0.6*Math.max(0,s);
+    const op=onArc?(0.3+0.7*Math.max(0,s)):0;
+    const cw=c.offsetWidth||148, chh=c.offsetHeight||196;
+    c.style.transform='translate3d('+(x-cw/2).toFixed(1)+'px,'+(y-chh/2).toFixed(1)+'px,0) scale('+sc.toFixed(3)+')';
     c.style.opacity=op.toFixed(3);
-    c.style.zIndex=isSel?30:10;
-    c.style.filter=isSel?'none':'saturate(.8) brightness(.85)';
-    c.classList.toggle('sel',isSel);
+    c.style.zIndex=Math.round(s*100)+100;
+    c.style.filter= onArc?(s>0.9?'none':'saturate(.85) brightness(.9)'):'none';
+    c.classList.remove('front');
+    const d=Math.abs(a-Math.PI/2);
+    if(onArc&&d<frontD){frontD=d;frontI=i;}
   });
+  if(frontI>=0){const fc=HUB_PAGES[frontI].el;fc.classList.add('front');fc.style.zIndex=300;curFront=frontI;}
+  hubRAF=requestAnimationFrame(renderHub);
 }
 function openHub(){
   if(!hubEl)buildHub();
-  hubOpen=true; document.body.classList.add('hub-open'); hubEl.classList.add('open');
-  sel=0; setTimeout(renderHub,30);
+  hubOpen=true; fromHub=false; document.body.classList.add('hub-open'); hubEl.classList.add('open');
+  if(!hubRAF){lastT=0; hubRAF=requestAnimationFrame(renderHub);}
 }
-function enterHub(){
+function returnToHub(){ fromHub=false; openHub(); }
+function enterHub(i){
   if(!hubOpen)return;
-  hubOpen=false; hubEl.classList.remove('open'); document.body.classList.remove('hub-open');
-  show(sel);
+  if(i===undefined)i=curFront;
+  hubOpen=false;
+  if(hubEl)hubEl.classList.remove('open');
+  document.body.classList.remove('hub-open');
+  if(hubRAF){cancelAnimationFrame(hubRAF);hubRAF=null;}
+  show(i); fromHub=true;
 }
 
 /* ===== 开场动画：碎片散落 → 弧带 → 圆环旋转 + 中心标题（参考版式：散落→成行→围环→环转+标题浮现→散场） ===== */
@@ -802,7 +826,7 @@ function enterHub(){
       slot, rr:R*(0.95+Math.random()*0.1), cs:Math.random()*0.1+(MOBILE?0.56:0.62)});
   }
   const W0=0.2;              /* 圆环自转角速度 rad/s */
-  let start=null,ended=false,skipped=false;
+  let start=null,skipped=false;
   function frame(ts){
     if(start===null)start=ts;
     const t=(ts-start)/1000, cx=CX(), cy=CY();
@@ -819,27 +843,23 @@ function enterHub(){
         y=lerp(f.ay,cy+Math.sin(ph)*f.rr,k);
         rot=lerp(f.ar,ph*180/Math.PI+90,k); sc=lerp(f.as,f.cs,k);
         op=0.92;
-      }else if(t<6.6){                             /* C 圆环自转 */
+      }else{                                       /* C 圆环持续自转（不自动散场，等待点击） */
         const ph=f.slot+W0*(t-3.0);
         x=cx+Math.cos(ph)*f.rr; y=cy+Math.sin(ph)*f.rr;
         rot=ph*180/Math.PI+90; sc=f.cs; op=0.92;
-      }else{                                       /* D 散场：向外飞散淡出 */
-        const k=ease((t-6.6)/1.0), ph=f.slot+W0*3.6, r2=f.rr*(1+1.7*k);
-        x=cx+Math.cos(ph)*r2; y=cy+Math.sin(ph)*r2;
-        rot=ph*180/Math.PI+90+k*50; sc=f.cs*(1+0.35*k); op=1-k;
       }
       f.el.style.opacity=op.toFixed(3);
       f.el.style.transform='translate3d('+(x-f.w/2).toFixed(1)+'px,'+(y-f.w/2).toFixed(1)+'px,0) rotate('+rot.toFixed(2)+'deg) scale('+sc.toFixed(3)+')';
     }
     if(t>=3.4)intro.classList.add('on-title');
-    if(t>=7.5&&!ended){ended=true;intro.classList.add('done');openHub();}
-    if(t>=8.9){intro.remove();return;}
+    if(skipped)return;
     requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);
   function skip(){
     if(skipped)return;skipped=true;
     intro.classList.add('done');
+    setTimeout(()=>{intro.style.display='none';},1200);
     openHub();
   }
   intro.addEventListener('click',skip);
