@@ -25,8 +25,10 @@
   --font-sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;
   --font-gothic:'UnifrakturCook',serif;
   --font-latin:'Cinzel','Cormorant Garamond',serif;
+  --crimson:#c1121f;--crimson-bright:#ff3348;--deep-red:#5c0a12;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
+::selection{background:rgba(255,51,72,.5);color:#fff;}
 html,body{height:100%;}
 body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overflow:hidden;-webkit-font-smoothing:antialiased;cursor:none;}
 @media(pointer:coarse){body{cursor:auto;}}
@@ -34,6 +36,8 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 /* ===== 背景层：烟墨 ===== */
 .bg-gradient{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
+    radial-gradient(120% 80% at 50% 122%, rgba(193,18,31,.2), transparent 60%),
+    radial-gradient(90% 58% at 50% -12%, rgba(201,24,58,.14), transparent 68%),
     radial-gradient(75% 55% at 18% 12%, rgba(216,210,220,.07), transparent 60%),
     radial-gradient(85% 60% at 85% 90%, rgba(142,16,36,.14), transparent 62%),
     radial-gradient(60% 45% at 78% 16%, rgba(201,24,58,.07), transparent 60%),
@@ -125,10 +129,10 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 .panel-inner{width:100%;max-width:940px;margin:auto 0;display:flex;flex-direction:column;align-items:center;text-align:center;
   padding:13vh 9vw;box-sizing:border-box;position:relative;z-index:1;}
 .panel.active{opacity:1;visibility:visible;transform:none;filter:blur(0);}
-.eyebrow{font-size:13px;letter-spacing:.46em;color:var(--bone);font-weight:500;margin-bottom:22px;font-family:var(--font-latin);text-transform:uppercase;text-shadow:var(--stroke);
+.eyebrow{font-size:13px;letter-spacing:.46em;color:var(--crimson-bright);font-weight:500;margin-bottom:22px;font-family:var(--font-latin);text-transform:uppercase;text-shadow:0 0 12px rgba(255,51,72,.35),var(--stroke);
   display:inline-flex;align-items:center;gap:14px;}
-.eyebrow::before,.eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,rgba(217,210,218,.55));}
-.eyebrow::after{background:linear-gradient(90deg,rgba(217,210,218,.55),transparent);}
+.eyebrow::before,.eyebrow::after{content:"";width:38px;height:1px;background:linear-gradient(90deg,transparent,var(--crimson-bright));}
+.eyebrow::after{background:linear-gradient(90deg,var(--crimson-bright),transparent);}
 .sec-title{font-family:var(--font-serif);font-weight:700;font-size:clamp(33px,5.8vw,60px);letter-spacing:.12em;line-height:1.45;position:relative;
   background:
     linear-gradient(112deg,transparent 34%,rgba(255,255,255,.96) 47%,rgba(232,242,255,.98) 50%,rgba(255,255,255,.96) 53%,transparent 70%),
@@ -136,7 +140,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   background-size:300% 100%,100% 100%;
   background-position:160% 0,0 0;background-repeat:no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 2px 18px rgba(0,0,0,.65)) drop-shadow(0 0 40px rgba(193,18,31,.3));}
+  filter:drop-shadow(0 2px 18px rgba(0,0,0,.65)) drop-shadow(0 0 22px rgba(220,20,60,.5)) drop-shadow(0 0 46px rgba(193,18,31,.4));}
 .sec-sub{margin-top:18px;font-size:clamp(16.5px,2.1vw,20px);font-weight:600;color:var(--text-bright);max-width:600px;line-height:2.2;font-family:var(--font-serif);text-shadow:var(--stroke);}
 .verse{position:relative;margin-top:20px;padding-top:20px;font-family:var(--font-kai);font-weight:400;font-size:clamp(16.5px,2.1vw,19.5px);color:var(--text-bright);letter-spacing:.08em;line-height:2.15;max-width:560px;opacity:1;text-shadow:var(--stroke);}
 .verse::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:26px;height:1px;background:linear-gradient(90deg,transparent,rgba(201,24,58,.8),transparent);}
@@ -214,7 +218,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   background-size:300% 100%,100% 100%;
   background-position:160% 0,0 0;background-repeat:no-repeat;
   -webkit-background-clip:text;background-clip:text;color:transparent;
-  filter:drop-shadow(0 2px 26px rgba(0,0,0,.72)) drop-shadow(0 0 52px rgba(193,18,31,.36));margin-top:10px;
+  filter:drop-shadow(0 2px 26px rgba(0,0,0,.72)) drop-shadow(0 0 26px rgba(220,20,60,.58)) drop-shadow(0 0 60px rgba(193,18,31,.45));margin-top:10px;
   animation:titleShine 2.2s ease-in-out 1.2s 1 both;}
 #cover .epigraph{margin-top:24px;font-family:var(--font-serif);font-weight:500;font-size:clamp(16px,2.2vw,21px);color:var(--text-bright);letter-spacing:.18em;text-shadow:var(--stroke);}
 #cover .epigraph-sub{margin-top:10px;font-size:15px;color:var(--text-bright);letter-spacing:.24em;font-family:var(--font-serif);text-shadow:var(--stroke);}
@@ -294,7 +298,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   .panel .ch-num,.panel .eyebrow,.panel .sec-title,.panel .sec-sub,.panel .verse,.panel .card,.panel .tags,.panel .style-note,.panel .links,.panel .seal,.panel .ending,.panel .epigraph,.panel .epigraph-sub,.panel .scroll-hint,.panel .frame,.panel .divider,.panel .orn{opacity:var(--oo,1)!important;animation:none!important;}
 }
 
-/* qj-ending-del-v1 */
+/* qj-wuci-aesthetic-v1 */
 </style>
 </head>
 <body>
@@ -375,7 +379,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <img class="orn" src="orn-moon.png" alt="" style="--oo:.72;top:76px;right:58px;width:88px;transform:scaleX(-1);">
     <div class="eyebrow">About · Self Introduction</div>
     <h2 class="sec-title">清酒</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="#ff3348"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(255,51,72,.95)" stroke="none"/></svg></div>
     <div class="card">
       <div class="ledger">
         <div class="row"><span class="k">Name</span><span class="v">清酒</span></div>
@@ -399,7 +403,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <img class="orn" src="orn-dagger.png" alt="" style="--oo:.72;top:66px;right:82px;width:82px;transform:scaleX(-1);">
     <div class="eyebrow">Style · 一览</div>
     <h2 class="sec-title">我是什么样的人</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="#ff3348"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(255,51,72,.95)" stroke="none"/></svg></div>
     <div class="tag-group">
       <div class="style-line">温病<i>丨</i>微擦<i>丨</i>逻辑<i>丨</i>诡辩</div>
       <div class="style-line">中高<i>丨</i>高擦<i>丨</i>白话<i>丨</i>恶趣味…</div>
@@ -414,7 +418,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <img class="orn" src="orn-crown.png" alt="" style="--oo:.82;top:54px;right:44px;width:150px;transform:scaleX(-1);">
     <div class="eyebrow">Outfit · 常驻装扮</div>
     <h2 class="sec-title">我常穿在身上的</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="#ff3348"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(255,51,72,.95)" stroke="none"/></svg></div>
     <div class="tags" style="margin-top:26px;">
       <span class="tag">白枭</span><span class="tag">耳虚</span><span class="tag">阿努比斯</span>
     </div>
@@ -425,7 +429,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
     <div class="panel-bg dim" style="background-image:url('bg5.jpg')"></div>
     <div class="eyebrow">More · 了解更多</div>
     <h2 class="sec-title">了解更多的我</h2>
-    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="rgba(201,24,58,.8)"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(201,24,58,.9)" stroke="none"/></svg></div>
+    <div class="divider"><svg viewBox="0 0 300 26" fill="none" stroke="rgba(217,210,218,.5)" stroke-width="1"><path d="M0 13 H118"/><path d="M182 13 H300"/><path d="M150 4 L159 13 L150 22 L141 13 Z" stroke="#ff3348"/><path d="M128 13 c-5 -6 -12 -2 -8 3 c-4 5 3 9 8 3" opacity=".8"/><path d="M172 13 c5 -6 12 -2 8 3 c4 5 -3 9 -8 3" opacity=".8"/><circle cx="150" cy="13" r="1.6" fill="rgba(255,51,72,.95)" stroke="none"/></svg></div>
     <div class="info-links">
       <a class="link-btn" href="https://www.kdocs.cn/l/cggVSeUGggXU" target="_blank" rel="noopener">
         <span class="lk-k">板评</span><span class="lk-v">愛意的索求之下 是無盡的欲望</span><span class="lk-arrow">&#8599;</span>
