@@ -322,7 +322,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
 #intro.on-title .skip-hint{opacity:1;}
 
 /* ===== 半圆页面选择枢纽：开场结束后进入 ===== */
-#hub{position:fixed;inset:0;z-index:175;overflow:hidden;cursor:none;
+#hub{position:fixed;inset:0;z-index:175;overflow:hidden;cursor:none;touch-action:none;
   background:radial-gradient(120% 100% at 50% 38%,#0d0913 0%,#050307 76%);
   opacity:0;visibility:hidden;pointer-events:none;transition:opacity .8s ease,visibility .8s;}
 #hub.open{opacity:1;visibility:visible;pointer-events:auto;}
@@ -359,7 +359,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   #hub .card .en{bottom:12px;}
 }
 
-/* qj-outfit-degothic-v4 */
+/* qj-mobile-vscroll-v5 */
 </style>
 </head>
 <body>
@@ -389,7 +389,7 @@ body{background:var(--bg2);color:var(--text);font-family:var(--font-sans);overfl
   <div class="stage">
     <div class="hub-arc"></div>
   </div>
-  <div class="hub-tip">滚动 / 拖拽 转动半圆 · 轻触卡片进入 · 再轻触页面返回</div>
+  <div class="hub-tip">上下滚动 / 滚轮 转动半圆 · 轻触卡片进入 · 再轻触页面返回</div>
 </div>
 
 
@@ -737,12 +737,12 @@ function buildHub(){
     c.addEventListener('click',()=>{ if(hubDragged){hubDragged=false;return;} enterHub(i); });
     stage.appendChild(c); p.el=c;
   });
-  // 滚轮 / 拖拽 手动转动半圆
+  // 滚轮 / 上下滑动 手动转动半圆（手机上下滑 = 电脑鼠标滚轮，方向一致）
   hubEl.addEventListener('wheel',e=>{e.preventDefault();rot+=e.deltaY*0.0016;},{passive:false});
-  let lastX=null;
-  hubEl.addEventListener('pointerdown',e=>{lastX=e.clientX;hubDragged=false;});
-  hubEl.addEventListener('pointermove',e=>{ if(lastX!==null){const d=e.clientX-lastX;rot+=d*0.004;if(Math.abs(d)>8)hubDragged=true;lastX=e.clientX;} });
-  hubEl.addEventListener('pointerup',()=>{lastX=null;});
+  let lastY=null;
+  hubEl.addEventListener('pointerdown',e=>{lastY=e.clientY;hubDragged=false;});
+  hubEl.addEventListener('pointermove',e=>{ if(lastY!==null){const d=lastY-e.clientY;rot+=d*0.004;if(Math.abs(d)>8)hubDragged=true;lastY=e.clientY;} },{passive:false});
+  hubEl.addEventListener('pointerup',()=>{lastY=null;});
   addEventListener('keydown',e=>{
     if(!hubOpen)return;
     if(e.key==='ArrowRight'||e.key==='ArrowDown'){rot+=0.5;e.preventDefault();}
