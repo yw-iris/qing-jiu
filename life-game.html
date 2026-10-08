@@ -28,7 +28,7 @@ html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--txt);font-family:var(--cn);overflow-x:hidden;
   -webkit-font-smoothing:antialiased;line-height:1.55;cursor:none}
 body.locked{overflow:hidden;height:100vh}
-@media (hover:none){body{cursor:auto}}
+@media (hover:none){body{cursor:auto}#cur{display:none!important}}
 
 /* ===== 背景 ===== */
 #bg{position:fixed;inset:0;z-index:0;display:block}
@@ -305,6 +305,18 @@ h2.title b.r{color:var(--crimson)}
   #end h2{font-size:clamp(34px,7vw,88px)}
 }
 
+/* ===== 手机端排版优化 ===== */
+@media(max-width:680px){
+  section{padding:74px 6.5vw 60px}
+  .sec-tag{flex-wrap:wrap;row-gap:8px;letter-spacing:.18em}
+  .sec-tag .id{white-space:nowrap}
+  .card .hd{letter-spacing:.14em;font-size:10px;gap:8px}
+  .card .hd .dot{white-space:nowrap}
+  .aff-panel{position:static}
+  .pick{padding:20px 18px}
+  .opt{padding:12px 26px}
+}
+
 /* ===== BGM 开关 ===== */
 #bgmBtn{position:fixed;right:18px;bottom:18px;z-index:1500;
   font-family:var(--mono);font-size:12px;letter-spacing:.12em;
@@ -319,7 +331,7 @@ h2.title b.r{color:var(--crimson)}
 #bgmBtn.on .dot{background:var(--crimson);box-shadow:0 0 8px var(--crimson)}
 @media(max-width:680px){#bgmBtn{right:12px;bottom:12px;padding:7px 11px;font-size:11px}}
 
-/* wr-docs-v5 */
+/* wr-mobile-v6 */
 </style>
 </head>
 <body class="locked">
