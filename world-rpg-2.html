@@ -308,12 +308,28 @@ h2.title b.r{color:var(--crimson)}
   #end h2{font-size:clamp(34px,7vw,88px)}
 }
 
-/* wr-tech-dedup-v2 */
+/* ===== BGM 开关 ===== */
+#bgmBtn{position:fixed;right:18px;bottom:18px;z-index:1500;
+  font-family:var(--mono);font-size:12px;letter-spacing:.12em;
+  color:var(--cyan);background:rgba(5,10,18,.82);border:1px solid var(--line);
+  padding:9px 14px;cursor:pointer;backdrop-filter:blur(4px);
+  box-shadow:0 0 18px rgba(0,229,255,.18);transition:color .25s,border-color .25s,box-shadow .25s;
+  user-select:none}
+#bgmBtn:hover{color:#fff;border-color:var(--cyan);box-shadow:0 0 26px rgba(0,229,255,.4)}
+#bgmBtn.on{color:var(--crimson);border-color:var(--crimson);box-shadow:0 0 22px rgba(255,36,64,.42)}
+#bgmBtn .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--cyan);
+  margin-right:7px;box-shadow:0 0 8px var(--cyan);vertical-align:middle}
+#bgmBtn.on .dot{background:var(--crimson);box-shadow:0 0 8px var(--crimson)}
+@media(max-width:680px){#bgmBtn{right:12px;bottom:12px;padding:7px 11px;font-size:11px}}
 
-/* wr-crow-hint-v3 */
+/* wr-bgm-v4 */
 </style>
 </head>
 <body class="locked">
+
+<!-- BGM -->
+<audio id="bgm" src="bgm_prelude.mp3" loop preload="auto"></audio>
+<button id="bgmBtn" type="button" aria-label="背景音乐开关"><span class="dot"></span>♪ BGM</button>
 
 <!-- 背景 -->
 <canvas id="bg"></canvas>
@@ -707,6 +723,18 @@ document.querySelectorAll('#sectors a').forEach(a=>{
     const tgt=document.querySelector(a.getAttribute('href'));
     if(tgt)tgt.scrollIntoView({behavior:'smooth',block:'start'});});
 });
+/* ===== BGM 自动播放 / 开关 ===== */
+(function(){
+  const bgm=document.getElementById('bgm'),btn=document.getElementById('bgmBtn');
+  let on=false,kicked=false;
+  bgm.volume=0.42;
+  function play(){ bgm.play().then(()=>{on=true;btn.classList.add('on');}).catch(()=>{}); }
+  function pause(){ bgm.pause();on=false;btn.classList.remove('on'); }
+  function kick(){ if(kicked)return; kicked=true; play(); }
+  ['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,kick,{passive:true}));
+  btn.addEventListener('click',e=>{ e.stopPropagation(); on?pause():play(); });
+})();
+
 </script>
 </body>
 </html>
